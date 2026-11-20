@@ -7,4 +7,6 @@ export default defineConfig({
   // GitHub Pages serves contact.html at /contact.
   trailingSlash: 'never',
   build: { format: 'file' },
+  // Keep the built HTML readable (line breaks and indentation) instead of squeezing it onto one line.
+  compressHTML: false,
 });

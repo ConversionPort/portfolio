@@ -48,8 +48,8 @@ const skills = [
         <h2 class="serif-heading">Proficiencies</h2>
         <ul class="icon-grid">
           {
-            skills.map(({ icon, label, wide }) => (
-              <li>
+            skills.map(({ icon, label, wide }, i) => (
+              <li style={`--i: ${i}`}>
                 <span class:list={['icon', { wide }]} role="img" aria-label={label} title={label} style={`--src: url('/icons/${icon}')`} />
               </li>
             ))
@@ -176,6 +176,18 @@ const skills = [
 
   .icon-grid li:nth-child(13) {
     grid-column: 2;
+  }
+
+  /* Icons slide in from the right one after another when the page loads. */
+  .icon-grid li {
+    animation: slide-in 0.6s ease both;
+    animation-delay: calc(0.15s + var(--i) * 0.06s);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .icon-grid li {
+      animation: none;
+    }
   }
 
   .icon {

@@ -23,6 +23,7 @@ const { title, alt = '', href, image, width, ratio = '416 / 227', size = 26, tit
 ---
 
 <a
+  data-reveal
   class:list={['project-card', className]}
   href={href}
   style={`--title-size: ${size}px; --thumb: ${width}px; --title-width: ${titleWidth}px; --ratio: ${ratio}`}
@@ -64,6 +65,19 @@ const { title, alt = '', href, image, width, ratio = '416 / 227', size = 26, tit
     width: 100%;
     aspect-ratio: var(--ratio);
     object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  /* The thumbnail shrinks slightly inside its frame on hover. */
+  .project-card:hover .frame :global(img),
+  .project-card:focus-visible .frame :global(img) {
+    transform: scale(0.95);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .frame :global(img) {
+      transition: none;
+    }
   }
 
   .project-card:hover .frame,

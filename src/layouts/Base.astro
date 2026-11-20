@@ -32,6 +32,7 @@ const SiteTitle = home ? 'h1' : 'p';
     <meta name="description" content={description} />
     <meta name="robots" content="noindex, nofollow" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -57,5 +58,20 @@ const SiteTitle = home ? 'h1' : 'p';
     <footer class="site-footer">
       <a href="mailto:ekberglinus01@gmail.com">ekberglinus01@gmail.com</a>
     </footer>
+    <script>
+      // Slide in elements marked data-reveal as they scroll into view.
+      const items = document.querySelectorAll('[data-reveal]');
+      const io = new IntersectionObserver(
+        (entries) =>
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('revealed');
+              io.unobserve(e.target);
+            }
+          }),
+        { rootMargin: '0px 0px -60px 0px' },
+      );
+      items.forEach((el) => io.observe(el));
+    </script>
   </body>
 </html>
