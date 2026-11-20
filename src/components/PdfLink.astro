@@ -1,0 +1,48 @@
+---
+// A PDF document link drawn as a document icon (the icon itself says "PDF").
+interface Props {
+  href: string;
+  label: string;
+  /** Small inline icon. */
+  small?: boolean;
+}
+
+const { href, label, small = false } = Astro.props;
+---
+
+<a class:list={['pdf-link', { small }]} href={href} target="_blank" rel="noopener">
+  <span class="pdf-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">{label} (PDF)</span>
+</a>
+
+<style>
+  .pdf-link {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #7a7a7a;
+    text-decoration: none;
+  }
+
+  .pdf-link:hover {
+    color: var(--link);
+  }
+
+  .pdf-icon {
+    width: 56px;
+    height: 64px;
+    background: currentColor;
+    -webkit-mask: url('/icons/file-pdf.svg') center / contain no-repeat;
+    mask: url('/icons/file-pdf.svg') center / contain no-repeat;
+  }
+
+  .small {
+    vertical-align: middle;
+  }
+
+  .small .pdf-icon {
+    width: 22px;
+    height: 26px;
+  }
+</style>

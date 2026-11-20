@@ -1,0 +1,12 @@
+---
+// Steam's store widget for a game.
+interface Props {
+  app: number;
+  title: string;
+  class?: string;
+}
+
+const { app, title, class: className } = Astro.props;
+---
+
+<iframe class:list={['steam', className]} src={`https://store.steampowered.com/widget/${app}/`} title={title} loading="lazy"></iframe>

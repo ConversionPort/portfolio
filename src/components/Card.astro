@@ -1,0 +1,14 @@
+---
+// A light grey section box on a project page, optionally with a ruled heading.
+interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { title, class: className } = Astro.props;
+---
+
+<section class:list={['card', className]}>
+  {title && <h2 class="card-title">{title}</h2>}
+  <slot />
+</section>

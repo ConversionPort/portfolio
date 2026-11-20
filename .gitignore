@@ -1,0 +1,14 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# reference capture of the old Wix site (not part of the site)
+wix-capture/
+
+# logs and OS files
+npm-debug.log*
+.DS_Store
+Thumbs.db

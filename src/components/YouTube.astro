@@ -1,0 +1,28 @@
+---
+// A YouTube video or playlist, loaded only when scrolled near.
+interface Props {
+  id?: string;
+  /** Playlist id; shows the whole playlist instead of one video. */
+  list?: string;
+  title: string;
+  /** Vertical (Shorts) video. */
+  vertical?: boolean;
+  class?: string;
+}
+
+const { id, list, title, vertical = false, class: className } = Astro.props;
+if (!id && !list) throw new Error('YouTube needs an id or a list');
+const src = list
+  ? `https://www.youtube-nocookie.com/embed/videoseries?list=${list}`
+  : `https://www.youtube-nocookie.com/embed/${id}`;
+---
+
+<div class:list={['embed', { vertical }, className]}>
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen></iframe>
+</div>

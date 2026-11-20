@@ -1,0 +1,264 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Figure from '../components/Figure.astro';
+import Img from '../components/Img.astro';
+import PdfLink from '../components/PdfLink.astro';
+
+const downloadGame = 'https://drive.google.com/file/d/1oqumS533q2_4S9niOXFL6qV4XWVRU8fo/view?usp=sharing';
+const downloadBlueprints = 'https://drive.google.com/file/d/1BgFsQUY74kUkapArehidrQ-XZv1V9EyY/view?usp=sharing';
+---
+
+<Base
+  title="Unreal Project: Fleshscape | Linus Ekberg"
+  description="Fleshscape, an Unreal Engine 5 souls-like made by a team of 10 in 8 weeks, with Linus Ekberg as lead level designer and game designer."
+>
+  <div class="project wrap">
+    <Card class="solo fs">
+      <div class="fs-top">
+        <div>
+          <h1 class="page-title">Unreal 5 Project: Fleshscape</h1>
+          <ul class="facts">
+            <li>Group Project (10)</li>
+            <li>Role: Lead level designer &amp; game designer</li>
+            <li>8 Weeks</li>
+            <li>Unreal engine 5.1, Maya, Trello, Github</li>
+          </ul>
+          <h2 class="subtitle docs-title">Documents</h2>
+          <p class="docs">
+            <span>GDD: <PdfLink href="/files/fleshscape-gdd.pdf" label="Fleshscape game design document" small /></span>
+            <span>2-pager: <PdfLink href="/files/fleshscape-2-pager.pdf" label="Fleshscape 2-pager" small /></span>
+          </p>
+          <h2 class="subtitle pillars-title">Pillars (Read more in GDD)</h2>
+          <ul class="facts pillars">
+            <li>Skill-based combat</li>
+            <li>Moral Dilemma</li>
+            <li>World building</li>
+          </ul>
+          <a class="subtitle download" href={downloadGame}>Download (Windows)</a>
+        </div>
+        <Img name="posterv2.png" width={337} aspect="337 / 491" position="top" alt="Fleshscape poster: Embrace the darkness within" eager />
+      </div>
+
+      <div class="flow body">
+        <p class="text">
+          On the first day of the project I sketched out some level ideas. The <strong>goal</strong> was simply to have a sketch
+          that could <strong>inspire</strong> our <strong>storytelling</strong>, <strong>aesthetic</strong> and <strong>future iterations</strong> of our level moving forward.
+          We knew we wanted a souls-like combat system with a focus on <strong>world-building</strong> and <strong>moral dilemma</strong>.
+        </p>
+        <div class="pair sketches">
+          <figure>
+            <Img name="level1-plan1-v2.png" width={373} alt="Sketch of the basement floor" />
+            <figcaption>
+              Level 1a - Basement floor (Sketch)<br />Goal is to slowly teach the mechanics but in an engaging way. Keeping the level linear.
+            </figcaption>
+          </figure>
+          <figure>
+            <Img name="level1-plan2.png" width={373} alt="Sketch of the main floor" />
+            <figcaption>
+              Level 1b - Main floor (Sketch)<br />The purpose of this area is to give the player more agency to experiment with their newly learnt mechanics.
+            </figcaption>
+          </figure>
+        </div>
+        <p class="text">
+          We aimed for the game to <strong>convey</strong> a <strong>grim atmosphere</strong>, suggesting that the character's circumstances are <strong>inherently destined</strong> for <strong>failure</strong>.
+        </p>
+        <p class="text">
+          In the level design, I used <strong>weenies</strong> to offer players a sense of <strong>hope, purpose and direction</strong>.
+          This was essential within the <strong>challenging</strong> and <strong>bleak</strong> world of the game, ensuring a sense of direction and player <strong>engagement</strong> despite the difficult setting.
+        </p>
+        <div class="pair three">
+          <Figure loop="fleshscape-weenie-1" width={297} caption="Birth-canal leading to lighthouse weenie. The narrative goal of the level is to leave on a boat." />
+          <Figure loop="fleshscape-weenie-2" width={297} caption="Second sight of lighthouse weenie. Middle of the level." />
+          <Figure loop="fleshscape-weenie-3" width={297} caption="At end of level you approach the lighthouse." />
+        </div>
+        <hr />
+        <div class="pair clues">
+          <Figure
+            img="level-clues-1.png"
+            width={402}
+            caption="Early whitebox tried to communicate that B would lead to C. In later stages we made C have more similarities like their lighting to communicate that B connects to C."
+          />
+          <Figure
+            img="level-clues-2.png"
+            width={402}
+            caption="Further into the level we are back in the big round room. Now the player can see the goal. During playtest session I would continuously monitor how players would navigate and ask if they ever felt lost."
+          />
+        </div>
+        <hr />
+        <Figure loop="beforeandafter" width={600} caption="Early room that combines jumping and interacting with lever (crystal)" center />
+        <Figure img="highresscreenshot00020.png" width={600} caption="After multiple playtests this became the final whitebox version before art pass" center />
+        <div class="row pacing">
+          <div class="text-17">
+            <h2 class="subtitle">Pacing and rewards in a souls-like game.</h2>
+            <p>
+              It was important that the game did not feel like a combat simulator, going from room to room of combat
+              encounters. The player should have the experience feel rewarding and fun in other ways, and switch up the pace
+              from constant combat encounters.
+            </p>
+            <p>
+              <strong>Building an intriguing world:</strong> We aimed to create a cool, immersive world that feels alive and
+              interesting. This meant paying attention to details and stories to make the game world a place players would want
+              to explore.
+            </p>
+            <p>
+              <strong>Reward vistas</strong>: I placed beautiful and unique spots in the game for players to discover, rewarding
+              their progress or curiosity. These spots were like little visual treats, giving players a nice break and a sense of
+              accomplishment.
+            </p>
+            <p>
+              <strong>Puzzle encounters:</strong> To diversify the gameplay experience, I designed simple puzzles. These were
+              intentionally quite simple, as their primary function was to inject a change of pace, contribute to world-building,
+              and cleverly hint at upcoming areas.
+            </p>
+            <p>
+              <strong>Secret treasure chests:</strong> Within Fleshscape, character progression wasn't tied to defeating enemies.
+              Instead, finding secret treasure chests provided stat upgrades. This approach aimed to encourage exploration,
+              enabling players to discover more about the game's world while being rewarded for their efforts. The game's essence
+              is rooted in the player's ability to succeed purely through improving their own skills, therefore finding chests
+              was not required to win.
+            </p>
+          </div>
+          <div class="col">
+            <Figure loop="fleshscape-crystal" width={364} alt="A reward vista" />
+            <Figure loop="fleshscape-weenie-1" width={364} alt="A lighthouse weenie" />
+            <Figure loop="fleshscape-puzzleexample1" width={364} alt="A puzzle encounter" />
+            <Figure loop="fleshscape-secret" width={364} alt="Finding a secret treasure chest" />
+          </div>
+        </div>
+        <hr />
+        <div class="row blueprints">
+          <div class="col">
+            <div class="text-17">
+              <h2 class="subtitle">Blueprints</h2>
+              <p>Using blueprints I would design puzzles, prototypes and miscellaneous things.</p>
+              <p>
+                One of which being this sequence of showing these informative billboard texts and letting the player break the
+                planks. Tech artists could later add their own particle effects as desired.
+              </p>
+            </div>
+            <Figure loop="fleshscape-blueprint-stuff" width={362} alt="Breaking planks after the billboard texts" />
+          </div>
+          <div class="col bp-images">
+            <Img name="image-11.png" width={540} alt="Unreal blueprint graph" />
+            <Img name="image-12.png" width={541} alt="Unreal blueprint graph" />
+            <Img name="image-10.png" width={542} alt="Unreal blueprint graph" />
+          </div>
+        </div>
+        <p class="center"><a class="subtitle download" href={downloadBlueprints}>Download (Windows)</a></p>
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  .fs-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 337px;
+    gap: 30px;
+    padding-right: 25px;
+  }
+
+  .fs-top h1 {
+    margin-left: -12px;
+  }
+
+  .fs-top .facts {
+    margin-top: 6px;
+  }
+
+  .docs-title {
+    margin-top: 26px;
+  }
+
+  .docs {
+    display: flex;
+    gap: 36px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: #000;
+  }
+
+  .pillars-title {
+    margin-top: 30px;
+  }
+
+  .pillars {
+    font-size: 15px;
+  }
+
+  .download {
+    display: inline-block;
+    margin-top: 40px;
+    color: var(--text);
+  }
+
+  .body {
+    margin-top: 50px;
+  }
+
+  .text {
+    font-size: 18px;
+    line-height: 1.75;
+  }
+
+  .text strong,
+  .text-17 strong {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .sketches {
+    justify-content: space-around;
+  }
+
+  .sketches figure {
+    width: 373px;
+    max-width: 100%;
+  }
+
+  .three {
+    gap: 22px;
+  }
+
+  .clues {
+    justify-content: space-around;
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .text-17 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5em;
+    font-size: 17px;
+    line-height: 1.85;
+  }
+
+  .text-17 .subtitle {
+    margin-bottom: -0.9em;
+  }
+
+  .bp-images {
+    gap: 40px;
+  }
+
+  @media (max-width: 860px) {
+    .fs-top {
+      grid-template-columns: minmax(0, 1fr);
+      padding-right: 0;
+    }
+
+    .fs-top h1 {
+      margin-left: 0;
+    }
+
+    .text-17,
+    .text {
+      font-size: 16px;
+    }
+  }
+</style>

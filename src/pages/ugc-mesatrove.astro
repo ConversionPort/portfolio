@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Img from '../components/Img.astro';
+import YouTube from '../components/YouTube.astro';
+---
+
+<Base
+  title="LittleBigPlanet - Level - Mesa Trove | Linus Ekberg"
+  description="Mesa Trove, a LittleBigPlanet community level made to feel like an official level in the game."
+>
+  <div class="project wrap">
+    <Card class="solo">
+      <h1 class="page-title">UGC Level - LittleBigPlanet - Mesa Trove</h1>
+      <div class="solo-top">
+        <div>
+          <ul class="facts">
+            <li>Solo project</li>
+          </ul>
+          <p class="solo-text">
+            My goal of this level was to feel like an official level in the game. The official levels in this game combines
+            playful sections and more serious sections, so I tried to mimic that.
+          </p>
+        </div>
+        <YouTube id="PNTw7VxGfrA" title='Mesa Trove - LittleBigPlanet "Community" level' class="video" />
+      </div>
+      <h2 class="subtitle reviews-title">Reviews</h2>
+      <div class="reviews">
+        <Img name="image-8.png" width={442} alt="Review by TheBrick517: Awesome level! This deserves a team pick! 8/17/2022" />
+        <Img name="image-7.png" width={335} alt="Review by penguinskillcaps: Absolutly fantastic level. 9/8/2022" />
+        <Img name="image-6.png" width={479} alt="Review by P0K0422: so good it feels like it would fit right in with story mode. 5/31/2023" />
+        <Img
+          name="image-9.png"
+          width={600}
+          alt="Review by voltairevampl: This is so amazing, it feels right at home with this games story mode. Keep making awesome levels! 8/3/2023"
+        />
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  h1 {
+    margin-left: 6px;
+  }
+
+  .reviews-title {
+    margin: 20px 0 4px -8px;
+  }
+
+  .reviews {
+    gap: 4px;
+    margin-left: -8px;
+  }
+
+  @media (max-width: 860px) {
+    h1 {
+      margin-left: 0;
+    }
+
+    .reviews-title {
+      margin: 24px 0 4px;
+    }
+
+    .reviews {
+      margin-left: 0;
+    }
+  }
+</style>

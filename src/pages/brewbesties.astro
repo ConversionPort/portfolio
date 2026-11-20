@@ -1,0 +1,927 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Figure from '../components/Figure.astro';
+import YouTube from '../components/YouTube.astro';
+import Steam from '../components/Steam.astro';
+import PdfLink from '../components/PdfLink.astro';
+
+const toc = [
+  ['overview', 'Overview'],
+  ['how-to-play', 'How To Play'],
+  ['first-playable', 'First-Playable'],
+  ['prototype-mechanics', 'Prototype Mechanics'],
+  ['alpha', 'Alpha'],
+  ['beta', 'Beta & Code Release'],
+  ['steam-release', 'Steam Release'],
+  ['tutorial', 'Steam Release: Tutorial'],
+  ['level-design', 'Level Design'],
+  ['programming', 'Programming'],
+];
+
+const recipesPdf = '/files/delivery-manager-ui-recipes-overhaul.pdf';
+const drive = (id: string) => `https://drive.google.com/file/d/${id}/view?usp=sharing`;
+const watch = {
+  saw: 'https://www.youtube.com/watch?v=M35UDyKqtz0',
+  delivery: 'https://youtu.be/sIsRUtKoN6M?si=5BsySvW8oVmc8Vpj',
+  cameraSway: 'https://youtube.com/clip/UgkxuquJjzuSLf7-LDZx5lXZYwYPGWknYdqo?si=l2kBErUHYKPC6Qd3',
+  countdown: 'https://youtube.com/clip/UgkxQw8Qr1OL4xkHnXmmKh1KXY81F5pnKPP9?si=6g_HbooXKFWePNot',
+};
+
+// [name, link or '', description, video link?, text after the name?]
+type Script = [string, string, string, string?, string?];
+const delivery: Script[] = [
+  ['RecipeCandle', drive('1PpTdCJE2D85KBpsw7CF2jx3pzwvRxe--'), 'Handles AltInteractions on the recipe candle.'],
+  ['RecipeCandleManager', drive('1AUZSmotuOXiA5jNAmfJBlKdOxPJQzCCU'), 'Manages recipes candles and when to show recipes.'],
+  ['RecipeCandleManagerUI', drive('1Y6VEcu1FI9xYqHK8w0ZVkF-xXc12MFL9'), 'Updates UI based on RecipeCandleManager state.'],
+  ['DeliveryCounter', drive('1Fz0pTRVrrhxihfGdM2H0Z9dIHjJdNouH'), 'Subclass of BaseCounter. Counter that send potion information to DeliveryManager.'],
+  ['DeliveryManager', drive('1My5HvSebCu9ucdtFrXXai1WEi4F7ZmBa'), 'Creates new orders, manages potions sent from DeliveryCounter and whether or not the sent potion is a correct order.'],
+  ['DeliveryManagerUI', drive('1tzsaTiyTCE_JYbwJVQQwUupcy5SCDvUa'), 'Creates new orders and updates the queue of orders in the UI.'],
+  ['DeliverySingleOrder', drive('1AYfmiJ0C2UOOsHjAbjWjCOE-l6kKC-6V'), 'Handles a single order (failure, success, time run out, score)'],
+  ['DeliverySingleOrderUI', drive('1PbOnvIHzZcqYFUp1CDSPswic1g29qat9'), 'Displays what ingredients are needed and time left in the order. Plays completion and failure animations.'],
+  ['Ghost', '', 'Handles an individual ghost, such as animation and appearance.', undefined, ' (Customer)'],
+  ['GhostManager', drive('1MN-_LF6hOm6R3QLht4qngGzdLE_5g2Tj'), 'Manages all ghosts based on states.', undefined, ' (CustomerManager)'],
+];
+const misc: Script[] = [
+  ['AudioEnvironment', drive('1j1L4zOMkx6qwYtkUvbwevEIxW4Km9zQp'), 'Plays environmental audio clips in random intervals.'],
+  ['CameraDynamicPlayer', drive('1im1miBhQ7oJV_YLIHqU-SmJ9oHefqOjD'), 'Reads the average position of all players and moves appropriately.'],
+  ['CameraSway', drive('1mrIhvs6V6kdeugCIGatx5DD5A9uZiJm0'), 'Moves camera in a pattern to prevent a static camera.', watch.cameraSway],
+  ['CauldronState', drive('1p1oDYnfMkoKPkdNe8bYfCPZlyOPmsq48'), 'Controls the Cauldron interactions, information and displays ingredients in cauldron as in world UI.'],
+  ['CollisionCustom', drive('1FkxCBwnKFXR8ZiqDtC0b1g4WChkMpgED'), 'Trigger collision that nudges objects instead of direct collisions.'],
+  ['ColliderVisualizer', '', 'Set visualisation setting of collider in editor.'],
+  ['DebugFrameRateTester', '', 'Used to test game on different framerate settings.'],
+  ['DisableOnStates', '', 'Disables gameobject based on GameState.'],
+  ['FireState', '', 'Controls fire value and its UI in Cauldron.'],
+  ['FloatObjects', '', 'Moves gameobject in a floating manner.'],
+  ['FloorFragile', '', 'Used for floors that can be destroyed when walked on.'],
+  ['ForceLook', '', 'Forces player to look a specified direction.'],
+  ['GameManager', drive('1LvuXjB8YIKdGxpb9O3tUIeyLIUTzqVo2'), 'Controls the game and its states.'],
+  ['GameStartCountdownUI', '', 'Control game start animation.', watch.countdown],
+  ['GameTimerAudio', 'https://drive.google.com/drive/u/2/folders/19JMLvQc45yABr1_528YH2iGJ1CUM_50c', 'Play audio for GameTimerUI.'],
+  ['GameTimerUI', drive('1lQfbpu-5rIwcYQYlE0VsZH7igd8TCMRS'), 'Reads gametimer and displays on UI with warning effects.'],
+  ['GlyphHandler', drive('1nExLQuvxTrkKxBRDSBJsCsmclr7tJz3t'), 'Changes glyph (input sprite prompt) based on what user specified in the settings.'],
+  ['IAltInteractable', '', 'Interface for classes where players should be able to Alt-interact.'],
+  ['IBarUI', '', 'Interface for UI with Bar.'],
+  ['IHasProgress', '', 'Interface for classes that have progress such as MagicCounter where players AltInteract to enchant ingredients.'],
+  ['Killbox', '', 'Handles when players and items enters it triggers. E.g. calls PlayerDeathManager.Die();'],
+  ['Lever', '', 'Implements Alt-interact. Switches states on game elements when players pull it.'],
+  ['LevelInitializer', '', 'Initializes the level, useful when debugging as you can set different settings such as amount of players.'],
+  ['LoadMeOnGameStart', '', 'Loads gameobject on game start'],
+  ['LookAtCamera', '', '(Billboard) Rotates object to face the camera.'],
+  ['MaterialColorChanger', '', 'Changes the material color, used in cauldron and potion liquid.'],
+  ['OverlayCameraCopyMainCamera', '', 'Ensures the in-space UI Overlay camera follows the main camera.'],
+  ['PlatformController', '', 'Controls platforms that move.'],
+  ['PlatformControllerManager', '', 'Manages all PlatformControllers to move on different cycles'],
+  ['PressurePlate', '', 'Switches game elements when players stand on it.'],
+  ['ProgressBarUI', '', 'Displays UI based on progress of certain actions such as sawing.'],
+  ['PumpkinStation', '', 'Controls an individual Pumpkin to grow.'],
+  ['PumpkinStationManager', drive('1jwhjK_bUkolgyK6uGk318ZakV2wfTrZT'), 'Manages which and when a PumpkinStation can grow a pumpkin.'],
+  ['ReplacePlayerValues', '', 'Replaces player values in certain conditions such as on slippery floor.'],
+  ['RespawnCheckpoint', '', 'Updates player respawn position.'],
+  ['ScoreManager', '', 'Handles score updates.'],
+  ['ScoreManagerUI', '', 'Updates score on UI and plays score animations.'],
+  ['TextTypewriter', drive('1tGcy23x48guAX9VRBl1Ib48l0UgjKfee'), 'Plays animation that reveals letters like a typewriter.'],
+  ['TravelBetweenPoints', '', 'Set gameobject to travel between points.'],
+  ['TutorialPromptController', '', 'Hides and shows prompts/hints depending on player actions.'],
+  ['TutorialUI', drive('1WB420Hd5ez6ZSlDMOuPweabGVf3yj0rM'), 'Animates and sets states of individual tutorial screens'],
+  ['TutorialUIManager', drive('1bdnmbT4tKMvQoREf63vGA0wGY7lZoama'), 'Manages the tutorial screen and handles input.'],
+  ['UIShowOnGameplay', drive('1LU-rvpHVY49CYzSMTLjoO6fhH3eQQ7xZ'), 'Fades in UI elements on gameplay gamemanager states'],
+  ['UITransparencyController', drive('1fzLc_RuPtn-GGl86xQijRtqgfdkVkko5'), "Adjusts UI's transparency based on closest player's distance to the UI element."],
+];
+const playerScripts = ['PlayerCameraRendererUI', 'PlayerDeathManager', 'PlayerDeathVFX', 'PlayerEmote', 'PlayerInteract (Item)', 'PlayerRendererUI', 'PlayerRespawnUI', 'PlayerAudio', 'PlayerInitializer', 'PlayerMovement', 'PlayerVibrationController'];
+const lobbyScripts = ['PlayerCharacterSetupController', 'PlayerConfigManager', 'PlayerConfig', 'PlayerAllReadyManager', 'PlayerSelectionPositionManager', 'PlayerSpawnUIMenu'];
+---
+
+<Base
+  title="Unity Steam: BrewBesties | Linus Ekberg"
+  description="Brew Besties, a couch co-op potion brewing game released on Steam: design, level design and programming from first playable to release."
+>
+  <nav class="toc" aria-label="Sections">
+    <ol>
+      {toc.map(([id, label]) => <li><a href={`#${id}`}>{label}</a></li>)}
+    </ol>
+  </nav>
+
+  <div class="project wrap bb">
+    <!-- Overview -->
+    <Card>
+      <div class="overview" id="overview">
+        <div>
+          <h1 class="page-title ruled">Unity: Brew Besties (Steam Release)</h1>
+          <ul class="facts">
+            <li>Small Group</li>
+            <li>Role: Project lead, Programmer, designer</li>
+            <li>Additional work: Scrum master, UI (excluding menus)</li>
+            <li>~9 weeks to finish + a few extra for steam release</li>
+            <li>Unity, Maya, Blender, Photoshop, Trello, Github, Drive</li>
+          </ul>
+          <ul class="facts goal">
+            <li>
+              Main Design goal:
+              <ul>
+                <li>
+                  <strong>Competitive cooperative chaos</strong>: While the game is cooperative where players need to work
+                  together. Provide an opportunity for a competitive and chaotic environment. Griefing each other is part of
+                  the fun!
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <Figure img="brewbestiposter.png" width={263} alt="Brew Besties poster" />
+      </div>
+      <div class="release">
+        <YouTube id="cgFEOh6V_-k" title="Brew Besties 1.0 Gameplay" />
+        <Steam app={2772170} title="Brew Besties on Steam" />
+        <p class="caption">Note: Released on Steam to get experience with Steamworks. There has been no marketing for this game.</p>
+      </div>
+    </Card>
+
+    <!-- How to play -->
+    <Card>
+      <h2 class="serif-heading ink" id="how-to-play">How to play</h2>
+      <figure class="video-md">
+        <YouTube list="PLNdokHIyPxJsdPR8mViz1E_bF9q3My15u" title="How to play Brew Besties (playlist)" />
+        <figcaption class="caption-lg">Short series of videos explaining the basics of Brew Besties</figcaption>
+      </figure>
+    </Card>
+
+    <!-- Week 1-2 and Week 2-3 -->
+    <Card>
+      <div class="flow">
+        <h2 class="serif-heading ink" id="first-playable">Week 1-2 - Planning &amp; First Playable</h2>
+        <div class="row">
+          <div class="prose">
+            <p>
+              We spent the first days planning a co-op game. What really made the idea feel more fleshed out was scrapping
+              class-based abilities and instead letting all players share the same abilities, which promoted our vision for
+              silly chaos as sharing these abilities meant for less obvious role, and create more funny interactions.
+            </p>
+            <p>
+              It was crucial to get a first playable quickly as it would allow me to make design decisions and to know if the
+              idea had potential. Therefore, I made a flowchart showcasing how the game loop would work. It allowed us to
+              start programming and made sure I had thought of everything in the game's brewing process.
+            </p>
+          </div>
+          <Figure img="whiteboard-game-sketch-censor-private-stuff.png" width={297} caption="Whiteboard brainstorming" />
+        </div>
+        <Figure img="cauldron-suggestion-fix.png" width={668} caption="Initial Flowchart brewing system" center />
+        <div class="prose">
+          <p>
+            When it came to our first playable playtest, I made sure we had the most crucial mechanics to our core idea. If we
+            could get away with not implementing something without significantly sacrificing reliability of our test - we
+            would. For example, the delivery request system was instead written on post-it notes. This meant that I would show
+            the playtesters what kinda potion they should brew on physical notes. This also meant I could test the balance and
+            design, by changing how frequently the recipes were more complicated and how often a new delivery request was
+            given.
+          </p>
+          <p>
+            Another great benefit with using post-it notes, was testing whether or not to always show players the delivery
+            request, or only when near the customers. During the playtests it was clear that showing players the delivery
+            requests when near the customers, encouraged communication as the player who revealed the requests would shout
+            out what the other player's needed to do. It also added an element of skill as some group of players could
+            remember the recipes of the current request better than others, which meant they had to sacrifice less time
+            walking to the customers to reveal the delivery requests again. This system was changed for the Steam release but
+            was significantly designed based on the learnings of this test. <a href={recipesPdf}><em>(see)</em></a>
+          </p>
+        </div>
+        <Figure img="postit.png" width={600} caption="Post-it notes used in the first playtests" center />
+        <div class="row media-left">
+          <Figure img="level1-firstplayable-legend.png" width={492} caption="First level in first-playable" />
+          <p class="big aside">
+            I made some simple levels to test the mechanics and made whitebox models. Obviously very primitive, but it was to
+            simply give me an idea of how the game plays out, what makes a level fun, the scale of levels etc.
+          </p>
+        </div>
+        <Figure img="level2-firstplayable-legend.png" width={708} caption="Second level in first-playable" center />
+
+        <h2 class="serif-heading ink" id="prototype-mechanics">Week 2-3 - Prototyping new levels and mechanics</h2>
+        <div class="prose">
+          <p>
+            This week was all about prototyping, but also programming such as placing items on counters and some useful
+            debug tools including a noclip camera, level selection, score manipulation etc.
+          </p>
+          <p>
+            One of the mechanics I prototyped this week - was the enchantment field, which makes ingredients enchanted when
+            passed through. <em>Enchanted ingredients are a different form of the ingredient that some customers may request.</em>
+            The goal of this mechanic was to explore more dynamic levels, as all of the game's elements at this point was
+            static. Additionally, I wanted a mechanic that could require the player to throw ingredients.
+          </p>
+        </div>
+        <div class="pair">
+          <Figure loop="enchantment-field" width={409} caption="Player passes through the field holding an ingredient, which turns it to an enchanted form." />
+          <Figure loop="enchantment-field-with-button" width={442} caption="Another player is on a pressure plate which activates the enchantment field." />
+        </div>
+        <div class="prose">
+          <p>
+            In the prototyped levels highlighted below, I tested different ways of combining the enchanted field together
+            with item throwing. The first level has fields passing through the gap, as well as walls that blocks item.
+            Furthermore, sometimes customers may not request enchanted ingredients, which would reverse the effect of the
+            fields to be more of a hazard, meaning the player would actually want to avoid using them. This concept was reused
+            for another level.
+          </p>
+          <p>
+            I wanted to find a greater way to promote using the attract and throw player mechanic. I found that the previous
+            level I tried it with, lacked dynamic gameplay, as players would throw away their partner on an island and leave
+            them there. On the second level I experimented with a rotating the enchanting field on cycles. This meant the
+            players had to use their abilities to maneuver around the playarea to use the field effectively.
+          </p>
+        </div>
+        <div class="pair">
+          <Figure loop="enchantment-field-factory-level-compress" width={426} caption="(A) Moving enchanting field level." />
+          <Figure loop="enchantment-field-rotatinator-level-compress" width={398} caption="(B) Rotating enchanting field level." />
+        </div>
+        <div class="row">
+          <p class="big">
+            I took the opportunity to sketch out several ideas for our backlog to use when the time is right for further
+            development. One of these ideas that made it into the game, albeit in a quite different form, was the pumpkin. The
+            final version omitted the requirement for two players to hold it, as I felt this detracted from the core mechanics
+            of throwing and attracting, and due to limited development time.
+          </p>
+          <Figure img="pumpkin.png" width={408} alt="Sketch of the pumpkin ingredient and pumpkin respawns" />
+        </div>
+        <div class="row">
+          <p class="big">
+            Based on observations from the First Playable playtest, I changed the layout of levels. In the first level counters
+            were made more useful. In this version, passing ingredients between players by using the counters was used way
+            more in playtests. However, more changes were needed.
+          </p>
+          <Figure img="mechanics.png" width={280} alt="Sketch of the moving minecart game element" />
+        </div>
+        <Figure img="level1-changes.png" width={882} caption="Level 1 - Before and after." center />
+        <p>
+          Finally, I worked on a <em>Mission</em> system which can be used for tutorials. I was never thrilled with the idea of
+          having tutorials in the game, as I wanted to teach the mechanics organically, but I decided to make a simple one just
+          to teach the mechanics to playtesters, and to learn more about tutorials from playtests.
+        </p>
+        <Figure loop="tutoriallevel" width={600} caption="Test of tutorial." center />
+      </div>
+    </Card>
+
+    <!-- Week 3-6 -->
+    <Card>
+      <div class="flow">
+        <h2 class="serif-heading ink" id="alpha">Week 3-6 - Alpha &amp; Design Decisions</h2>
+        <figure class="video-sm">
+          <YouTube list="PLNdokHIyPxJuyuYCCH-LNfu2uBkTCsYIU" title="Brew Besties alpha playtests (playlist)" />
+          <figcaption>Playtests from end of week 3</figcaption>
+        </figure>
+        <div class="row">
+          <p>
+            The game was at its best when players worked together. A common suggestion from playtesters and team members was
+            to include more two-player stations, like the <a class="accent" href={watch.saw}>Saw Station</a>. While I completely
+            agreed on that cooperation made the game more enjoyable, I didn't agree that this was the right approach to foster
+            it. My concern was that overly forcing two-player mechanics would actually make the game feel more rigid rather
+            than collaborative and dynamic. For example, if every action required two players, the gameplay might devolve into
+            predictable sequences: move together from A to B to C to D. To feel the essence of teamwork, there has to be some
+            chaos, players must have different roles and tasks going on at the same time! I also felt that much of this
+            feedback stemmed from certain levels lacking interesting design that encouraged players to discover new strategies
+            or push for higher scores, which I would address later on.
+          </p>
+          <div class="col">
+            <Figure loop="sawing" width={334} caption="Sawing" />
+            <Figure loop="throwing-and-attracting" width={334} caption="Throwing and Attracting players" />
+          </div>
+        </div>
+        <div class="prose">
+          <p>
+            That said, two-player mechanics are essential to achieving key moments of synergy, where players’ actions overlap
+            in exciting and unpredictable ways. The goal was to strike a balance by incorporating collaborative mechanics while
+            ensuring they didn’t dominate or disrupt player agency. For example, I created more dynamic levels where players
+            could throw or attract each other across gaps, or utilize the saw station. While the Saw Station can be used solo,
+            it works much faster when both players saw together, encouraging cooperation while ensuring the solo player remains
+            engaged by actively making progress on the task as they wait for their partner to join.
+          </p>
+          <p>
+            In the comparison below, I updated the first level to include three cauldrons. This change significantly improved
+            the pacing by encouraging multitasking and preventing the gameplay from feeling stale. With multiple cauldrons,
+            players can brew more potions simultaneously, leading to frequent interruptions in their otherwise normal workflow,
+            as they rush to deliver each finished potion as quickly as possible. Additionally, the updated counter layout
+            promotes teamwork by making it much faster for players to pass items across the counters rather than walking all
+            the way around them. Lastly, I removed the sawing firewood mechanic from the first level. Introducing too many
+            mechanics early on felt overwhelming, and I wanted players to focus on mastering potion-making first. This ensures
+            they gain confidence and are better prepared for the more complex challenges in later levels.
+          </p>
+        </div>
+        <div class="pair">
+          <Figure img="1-get-a-grip-a.png" width={478} caption="Before" alt="Level 1 before the changes" />
+          <Figure img="1-get-a-grip-b.png" width={432} caption="After" alt="Level 1 after the changes" />
+        </div>
+        <div class="row media-left">
+          <Figure loop="circle-transition-early-alpha" width={456} caption='Early alpha "MVP" Transition screen' />
+          <p>
+            During this stage I implemented a level transition animation. It would pause towards the end, highlighting and
+            following a random player. Players believed the game had selected the MVP of the round but in actuality it was
+            simply random. This effect promoted the goal of creating a <strong>competitive cooperative chaotic</strong> environment,
+            as players would fight over being in the circle and throw each other around. Many playtesters laughed and were loud
+            during this transition which proved it was successful.
+          </p>
+        </div>
+      </div>
+    </Card>
+
+    <!-- Week 6-9 -->
+    <Card>
+      <div class="flow">
+        <h2 class="serif-heading ink" id="beta">Week 6-9 - Beta &amp; Code Release</h2>
+        <p>
+          During this stage, my number one priority was to make every mechanic feel smooth, that meant polishing everything to
+          feel snappy and responsive, such as tweaking the attract mechanic. The levels also need to have a flow to them
+          (<em>Note: more about level design can be <a href="#level-design">read here</a></em>). One way I achieved this was
+          really thinking about inputs. For example, I merged the attract and throw mechanic to be activated by the same
+          button, as I figured you can't attract when you have something in hand, instead you can throw it.
+        </p>
+        <div class="row">
+          <div class="prose">
+            <p>
+              As new levels were being developed, I wanted more twists in them to make them feel unique. Ice physics was a great
+              way to make a level feel more unique but also added to some of the <strong>chaos</strong> that I strived for.
+              Additionally, I made sure each level had ways of griefing other players by throwing them out and kill them as
+              players really enjoyed doing so.
+            </p>
+            <p>
+              Later on, I felt the difficulty scale was too steep. I wanted to add a new second level that didn't require
+              learning new mechanics. At this point of the game, players didn't need to know how to throw to progress, however,
+              in this level, if throwing was used, players would save a significant amount of time. When players learned about
+              the throwing mechanic, they could come back and get a better score. But, to make the level interesting and unique,
+              I added the same icy physics, but only on the sides where the floor was wet and slippery. This, also meant players
+              got used to ice physics before being thrown in to a level with all ice.
+            </p>
+            <p>
+              I made more levels and 2 tutorials for code release but you can read more about them here (<a href="#level-design">levels</a> | <a href="#tutorial">tutorials</a>).
+            </p>
+          </div>
+          <div class="col narrow">
+            <Figure loop="icyplatformsearlybeta-ezgif-com-optimize" width={386} caption="Early Beta Ice level" />
+            <Figure img="cleaninghour-pre-artpass.png" width={386} caption="Early Beta - Level with slippery floor on sides" />
+            <Figure
+              img="cleaninghour-late-beta.png"
+              width={387}
+              caption="Late Beta- Level with slippery floor on sides. Players can throw items over the water instead of taking the longer slippery route. However, they still need to run back to deliver the potion."
+            />
+          </div>
+        </div>
+        <div class="row media-left">
+          <Figure img="playerportraits.png" width={494} caption="Testing scene with player portraits." />
+          <p>
+            I added player portraits to the UI using an overlay camera and some configured image renderers to only render one
+            player on a portrait and only ingredients when held. Portraits allows players to see what they are holding and doing
+            in general. Importantly, it also showed if they were dead and how many seconds until they respawn. This worked well
+            with the next expression feature - emotes!
+          </p>
+        </div>
+        <div class="row media-left">
+          <Figure loop="emoting" width={421} caption="Emoting" />
+          <p>
+            Emotes also paired well with the previously mentioned MVP Transition screen. Additionally, if there was ever a
+            stagnant moment for a player, they could fill that moment with emotes! When emoting, the player would also randomly
+            "say" something, which just made for many funny moments!
+          </p>
+        </div>
+        <figure class="video-sm">
+          <YouTube id="TSgAcbuKsFA" title="Brew Besties playthrough, a few days before code release" />
+          <figcaption>Few days before Code Release (gameplay)</figcaption>
+        </figure>
+        <p>
+          A little after code release I was prototyping wacky and fun mechanics. We weren't sure if we were going to update the
+          game yet. I experimented with two teleport mechanics. Teleport-ports and teleport orbs. Teleport-ports allowed players
+          to move teleporters and teleport using the altInteract-input. Teleport orbs worked like items. Players could to pass
+          them around on counters and on other players. It would be assigned to the player that first picked it up from a box.
+          As soon as it touched the floor the assigned player would teleport!
+        </p>
+        <div class="pair videos">
+          <figure>
+            <YouTube list="PLNdokHIyPxJsCHFUZKOpajFYVrUiix0VD" title="Teleport orbs demonstration (playlist)" />
+            <figcaption>Teleport orbs demonstration video</figcaption>
+          </figure>
+          <figure>
+            <YouTube list="PLNdokHIyPxJu64W0I6hSAUATgkTyno3FR" title="Teleport-ports demonstration (playlist)" />
+            <figcaption>Teleport-ports demonstration video</figcaption>
+          </figure>
+        </div>
+      </div>
+    </Card>
+
+    <!-- Steam release -->
+    <Card>
+      <div class="flow">
+        <h2 class="serif-heading ink" id="steam-release">Steam Release - New levels, mechanics, programming, UI</h2>
+        <p>
+          For the Steam release I re-made most of the games scripts. I made an input and player assigning system. I added some
+          new mechanics. Polished old mechanics. Remade, scrapped and added new levels. I also tried to make the UI in the game
+          prettier (we had another person designated to do this but unfortunately they could never do it).
+        </p>
+
+        <h3 class="serif-sub">Revealing Recipes Overhaul</h3>
+        <div class="prose">
+          <p>
+            Up until this point, the potion recipes requested by customers were only visible when a player was near the
+            delivery desk and would disappear once they stepped away. This system encouraged players to memorize recipes and
+            communicate with their teammates about the required ingredients. While some found this mechanic fun and engaging,
+            others found it too challenging. Therefore a compromise that maintained the appreciated aspects while improving
+            accessibility was needed.
+          </p>
+          <p>In the pdf below, I presented this idea to the team.</p>
+        </div>
+        <div class="pdf-row"><PdfLink href={recipesPdf} label="Delivery Manager UI: Recipes Overhaul" /></div>
+
+        <h3 class="serif-sub">Reworking Throw &amp; Attract (Powers)</h3>
+        <div class="prose">
+          <p>
+            A design challenge I tackled for this project was the precision of the "powers" system, which included throwing and
+            attracting mechanics. Earlier I prioritized fast, snappy gameplay too much, where players would aim powers by
+            running toward a direction without stopping. However, this approach lacked precision which caused both laughs and
+            frustration. The frustration arose when players tried to throw other players or items over gaps. To address this, I
+            initially placed fences to prevent players from running off cliffs, while still allowing items and players to be
+            thrown through them. This alleviated some of the pain points, but there was still a lack of precision, and the
+            system wasn’t perfect. I considered simply preventing players from running off cliffs altogether, but this felt like
+            it would remove the chaotic fun that the game thrived on.
+          </p>
+          <p>
+            I implemented a system where, as long as the player held down the powers button, their movement would stop, allowing
+            them to aim. It was only when the player released the button that the power would activate. This approach worked
+            much better. I kept the fences in place as they were useful indicators of where throwing or attracting could be
+            useful. Additionally, I reduced the length of the gaps. Previously, the gaps were roughly the same length as the
+            throw range, which made them feel less intuitive and pushed players to get too close to the edge. The added precision
+            also allowed me to introduce a new ingredient with a unique mechanic: crystals. Crystals break if not caught when
+            thrown, so players need to be ready to catch them!
+          </p>
+        </div>
+
+        <h3 class="serif-sub" id="tutorial">Tutorial</h3>
+        <p>
+          The previous version had its perks but lacked reliability. One major issue was that players enjoyed derping around
+          more than learning the mechanics. They had fun throwing each other and experimenting, but this didn't help them
+          progress. In an attempt to fix this, I made the second tutorial more engaging with unique challenges. However, it had
+          too many mechanics packed into it, and we didn’t have enough development time for separate tutorials that could focus
+          on fewer mechanics. Additionally, there weren't enough levels to introduce the mechanics in a fun, gradual way.
+        </p>
+        <div class="pair videos narrow-pair">
+          <figure>
+            <YouTube id="aMSDcbtT9Sk" title="Brew Besties - Tutorial 1 Late Beta" />
+            <figcaption>Late Beta Tutorial 1</figcaption>
+          </figure>
+          <figure>
+            <YouTube id="_gxz04-4g0Y" title="Brew Besties - Tutorial 2 Late Beta" />
+            <figcaption>Late Beta Tutorial 2</figcaption>
+          </figure>
+        </div>
+        <div class="prose">
+          <p>
+            For the Steam release, I added more levels and scrapped some old ones. I realized even more so, I needed to introduce
+            mechanics in unique, dynamic ways within the levels before moving on to new ones. From the start, I wasn’t a fan of
+            traditional tutorials and preferred a slower, organic introduction to the mechanics. As mentioned before, I removed
+            the sawing mechanic in earlier levels and gave the cauldron infinite fuel to ease players into the game.
+          </p>
+          <p>
+            I removed the tutorial levels entirely and replaced them with tutorial screens before each level. Playtesters found
+            this approach much easier to grasp. Simple bullet points with graphics were far less overwhelming than playing
+            through a tutorial without actually having seen how the mechanics worked. The biggest improvement was the increased
+            number of levels, which now introduced mechanics at a more manageable pace. The new first level was pretty much the
+            first tutorial level in a disguise, but with the addition of a tutorial screen before the level, players had a
+            better understanding of how to play and still earned a score. Players were more willing to learn when they actually
+            felt like they played part of the game and not a tutorial.
+          </p>
+          <p>
+            Finally, I added hints/prompts depending on conditions. For example, if the player needs an enchanted mushroom and
+            they have a mushroom in hand, a prompt will show up at an enchanting station, showing how to enchant.
+          </p>
+        </div>
+        <figure class="video-xs">
+          <YouTube id="eOYsZoJ6DPs" title="Brew Besties tutorial screens in 1.0" />
+          <figcaption>Tutorials in 1.0</figcaption>
+        </figure>
+        <p>
+          Important to note: I still wanted some discoverability. Some mechanics are not explained, mainly ingredient zones, as
+          players were quick to understand them and enjoyed figuring them out in playtests.
+        </p>
+      </div>
+    </Card>
+
+    <!-- Level design -->
+    <Card>
+      <div class="flow">
+        <h2 class="serif-heading ink" id="level-design">More About Level Design</h2>
+        <p class="indent">
+          In this level, the final version resembled the early prototype a lot. I tested adding wet/slippery floor in a few
+          places but found that the original placement worked the best for the gameplay loop. With this placement, players found
+          delivering items really exciting and nail-biting, especially, when manoeuvring when low on time. The final version
+          also only had one ingredient type (eyeballs) instead of both mushrooms and eyeballs, which made making the right potion
+          easier, which worked better for an early level, and honed in the gameplay on the slipperiness which was the most fun
+          aspect of this level.
+        </p>
+        <div class="pair">
+          <Figure img="cleaninghour-pre-artpass-2.png" width={489} caption="Cleaning Hour - First version" />
+          <Figure img="release-cleaning-hour.png" width={442} caption="Cleaning Hour - Final version" />
+        </div>
+        <p class="indent">
+          Next up, is a level which had many changes. It started as a level with alternating platforms, that players had to work
+          together to get to and get from. This aspect stayed throughout the revisions. There was a few problem with the first
+          versions, the layout was too cramped, and it didn't feel fun or unique enough compared to other levels.
+        </p>
+        <div class="pair">
+          <Figure img="icy-platforms-early.png" width={395} caption="Snow Way Out - Version A" />
+          <Figure img="icy-platforms-alpha.png" width={427} caption="Snow Way Out - Version B" />
+        </div>
+        <p class="indent">
+          To add some uniqueness, icy physics was applied to the floor. Additionally, adding log sawing, meant players could
+          overlap their actions more, previously players would have to wait for the player on the platform to give them
+          ingredients too much. In version D, the enchanting counters were moved to the alternating platform, creating a better
+          balance between players. The player on the moving platform now had more to do, while those on the main platform had
+          more time for other tasks. Previously, the main platform players felt rushed, but this change allowed both roles to
+          operate more smoothly and independently. Counters were placed to allow ingredients to be thrown from the alternating
+          platforms more easily which made the gameplay more satisfying and less frustrating.
+        </p>
+        <div class="pair">
+          <Figure img="icy-platforms-beta.png" width={395} caption="Snow Way Out - Version C" />
+          <Figure loop="icyplatformsearlybeta-ezgif-com-optimize" width={371} caption="Snow Way Out - Version D" />
+        </div>
+        <p class="indent">
+          In the final version, the layout was redesigned to be asymmetrical. Planks were also added under certain spots, which
+          negated the slippery physics. This contributed to an overall more smooth experience as well as feeling more varied.
+        </p>
+        <div class="pair">
+          <Figure img="icy-platforms-code-release.png" width={453} caption="Snow Way Out - Version E" />
+          <Figure img="final-icy-platforms.png" width={459} caption="Snow Way Out - Version F" />
+        </div>
+        <div class="row ghost">
+          <div class="col">
+            <p>
+              There were a few scrapped levels, along with others that never made it past the prototype phase. One such level,
+              Ghost House, was initially scrapped but later reimagined and incorporated into a new level with some of its
+              original principles intact. The main goal of this level was to teach players how to attract and throw items. In
+              the first version, this mechanic wasn’t required but was encouraged, as players would notice they weren’t scoring
+              high enough to achieve three stars without using it. While the level worked, I felt it could be improved. In the
+              remade version, counters floated along a stream between the playable areas. This design forced players to throw
+              items onto the counters and use the attract mechanic to pass them along to each other. I also decided to remove
+              the sawing mechanic from this level, to focus on the dynamic, floating counters. This approach felt far more
+              collaborative, engaging, and added just the right amount of chaos to make it fun.
+            </p>
+            <Figure img="final-the-canal.png" width={482} caption="The Canal - Counters float along the water stream" />
+          </div>
+          <div class="col">
+            <Figure img="early-ghosthouse.png" width={384} caption="Ghost House - First version" />
+            <Figure img="late-ghosthouse.png" width={384} caption="Ghost House - Late version" />
+          </div>
+        </div>
+        <div class="prose">
+          <p>
+            The Three Islands cave level was excluded from the Steam release. The glowing doors on the left acted as enchanting
+            zones, forcing ingredients to become enchanted when passing through them. This was intended to teach players how to
+            obtain enchanted ingredients, but the mechanic felt too forced, reduced visibility, and lacked clarity. I found
+            better, more organic ways to introduce this concept. Additionally, the level tried to introduce too many mechanics
+            at once, such as throwing players and sawing wood, which made it feel overwhelming. It also suffered from being too
+            static, especially in four-player games, where each player would settle on their "own" island and rarely need to
+            move after the first few seconds.
+          </p>
+          <p>
+            To address these issues, I designed new levels, one of which required players to be thrown onto pumpkin islands. As
+            a pumpkin was picked up, a new one would spawn on a different island, making the gameplay far more dynamic and
+            engaging. Mushrooms would also spawn and float along the rivers, creating opportunities for players to grab them as
+            they passed. This added variety to the flow of the level and encouraged players to move strategically and
+            collaborate, resulting in a more exciting and active experience.
+          </p>
+        </div>
+        <div class="pair">
+          <Figure img="code-three-islands.png" width={444} caption="Three Islands level" />
+          <Figure img="final-pumped-up.png" width={434} caption="Pumped Up level" />
+        </div>
+      </div>
+    </Card>
+
+    <!-- Programming -->
+    <Card>
+      <div class="flow scripts">
+        <h2 class="serif-heading ink" id="programming">Programming</h2>
+        <p class="indent">
+          List of some scripts I programmed. Not including scripts I collaborated on. Removed audio and VFX in scripts. Click
+          [&nbsp;▶] to watch related videos.
+        </p>
+        <div>
+          <p class="indent"><a class="play" href={watch.delivery} aria-label="Watch the delivery system video">[&nbsp;▶]</a> Delivery system</p>
+          <ul>
+            {
+              delivery.map(([name, href, desc, video, suffix]) => (
+                <li>
+                  {video && <a class="play" href={video} aria-label={`Watch ${name}`}>[&nbsp;▶]</a>}
+                  {href ? <a href={href}>{name}</a> : name}{suffix}: {desc}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <p class="indent">Items can be held by players and counters. BaseCounter and PlayerInteract implement IItemParent.</p>
+          <ul>
+            <li>
+              <a href={drive('13Ow1p9zA6AqNmrnKotWwkapsg2TOoEt2')}>BaseCounter</a>:
+              <ul>
+                <li>
+                  MainCounter: Normal counter that can have items placed on it.
+                  <ul>
+                    <li>ItemOnMainCounter: Starts the counter with an item on it.</li>
+                  </ul>
+                </li>
+                <li><a href={drive('1Fz0pTRVrrhxihfGdM2H0Z9dIHjJdNouH')}>DeliveryCounter</a>: Counter that send potion information to DeliveryManager.</li>
+                <li>MagicCounter: Counter that can also have ingredients enchanted by players AltInteracting.</li>
+                <li>ResourceCounter: Counter that spawns an ingredient in the player's hand when interacted with.</li>
+                <li><a class="play" href={watch.saw} aria-label="Watch SawCounter">[&nbsp;▶]</a> SawCounter: Player's can saw to get firewood.</li>
+                <li><a href={drive('1bnkR1QlcHii7ebywfqQM0p0Qc6Dfm7Ls')}>TrashCounter</a>: Counter that deletes items.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p>Miscellaneous scripts:</p>
+          <ul>
+            {
+              misc.map(([name, href, desc, video]) => (
+                <li>
+                  {video && <a class="play" href={video} aria-label={`Watch ${name}`}>[&nbsp;▶]</a>}
+                  {href ? <a href={href}>{name}</a> : name}: {desc}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div>
+          <p>Player scripts:</p>
+          <ul>{playerScripts.map((s) => <li>{s}</li>)}</ul>
+        </div>
+        <div>
+          <p>Scripts for player selection in the lobby and saving config:</p>
+          <ul>{lobbyScripts.map((s) => <li>{s}</li>)}</ul>
+        </div>
+        <div>
+          <p>Item &amp; Ingredient scripts:</p>
+          <ul>
+            <li>
+              Item
+              <ul>
+                <li>Potion: Can be filled from cauldrons and can empty a cauldron.</li>
+                <li>Firewood: Can be used as fuel for cauldrons.</li>
+                <li>
+                  Ingredient: Can be used in cauldrons and can be enchanted.
+                  <ul>
+                    <li>Crystal: Also destroys itself when hitting the ground.</li>
+                    <li>Pumpkin: Contains pumpkin specific properties.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li>ItemSO: ScriptableObject that contains item information such as sprites and what type it is (mushroom, eyeball etc)</li>
+            <li>IItemParent: If attached to gameobject, it can be used as a parent for an item. For example counters can have items on it and players can hold items.</li>
+            <li>ItemPlayerRenderer: Rendering properties for items on player portraits.</li>
+            <li>ItemFloatTrigger: Items will float like on water if triggered.</li>
+          </ul>
+        </div>
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<script>
+  // Highlight the section of the page you are reading in the side menu.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.toc a')];
+  const targets = links.map((a) => document.getElementById(a.hash.slice(1)));
+  let queued = false;
+  const update = () => {
+    queued = false;
+    let current = 0;
+    targets.forEach((t, i) => {
+      if (t && t.getBoundingClientRect().top < innerHeight * 0.4) current = i;
+    });
+    links.forEach((a, i) => a.toggleAttribute('aria-current', i === current));
+  };
+  addEventListener('scroll', () => {
+    if (!queued) {
+      queued = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+</script>
+
+<style>
+  /* Side menu (only where there is room next to the content). */
+  .toc {
+    display: none;
+    position: fixed;
+    top: 180px;
+    right: 20px;
+    z-index: 2;
+  }
+
+  @media (min-width: 1400px) {
+    .toc {
+      display: block;
+    }
+  }
+
+  .toc ol {
+    display: grid;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .toc a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 23px;
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .toc a::after {
+    content: '';
+    width: 9px;
+    height: 9px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+  }
+
+  .toc a[aria-current]::after {
+    background: currentColor;
+  }
+
+  .toc a:hover {
+    text-decoration: underline;
+  }
+
+  [id] {
+    scroll-margin-top: 16px;
+  }
+
+  /* Overview */
+  .overview {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 263px;
+    gap: 30px;
+    margin-left: -28px;
+  }
+
+  .ruled {
+    display: inline-block;
+    padding-right: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .facts {
+    margin-top: 12px;
+  }
+
+  .goal {
+    margin-top: 24px;
+  }
+
+  .goal ul {
+    padding-left: 1.4em;
+    list-style: circle;
+  }
+
+  .goal strong {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .release {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 16px;
+    width: min(560px, 100%);
+    margin: 36px auto 0;
+  }
+
+  .release > :global(.embed) {
+    width: 100%;
+  }
+
+  .release .caption {
+    justify-self: stretch;
+    padding-inline: 6px;
+  }
+
+  .video-md {
+    width: min(560px, 100%);
+    margin: 28px auto 0;
+  }
+
+  .video-sm {
+    width: min(480px, 100%);
+    margin-inline: auto;
+  }
+
+  .video-xs {
+    width: min(400px, 100%);
+    margin-inline: auto;
+  }
+
+  .caption-lg {
+    margin-top: 10px;
+    font-size: 16px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .aside {
+    align-self: center;
+  }
+
+  .row > .big {
+    align-self: center;
+  }
+
+  .narrow {
+    width: 386px;
+    max-width: 100%;
+  }
+
+  .videos > figure {
+    flex: 1 1 0;
+  }
+
+  .narrow-pair {
+    padding-inline: 30px;
+    gap: 64px;
+  }
+
+  .pdf-row {
+    padding-left: 140px;
+  }
+
+  .indent {
+    padding-inline: 20px;
+  }
+
+  .accent {
+    color: #5388f0;
+  }
+
+  .ghost .col {
+    gap: 22px;
+  }
+
+  /* Programming lists */
+  .scripts ul {
+    margin: 4px 0 0;
+    padding-left: 22px;
+  }
+
+  .scripts ul ul {
+    list-style: circle;
+  }
+
+  .scripts ul ul ul {
+    list-style: square;
+  }
+
+  .scripts li {
+    line-height: 1.75;
+  }
+
+  .play {
+    margin-right: 4px;
+    text-decoration: none;
+  }
+
+  @media (max-width: 860px) {
+    .overview {
+      grid-template-columns: minmax(0, 1fr);
+      margin-left: 0;
+    }
+
+    .overview > :global(figure) {
+      justify-self: center;
+    }
+
+    .narrow {
+      width: auto;
+    }
+
+    .narrow-pair {
+      padding-inline: 0;
+      gap: 16px;
+    }
+
+    .pdf-row {
+      padding-left: 0;
+    }
+
+    .indent {
+      padding-inline: 0;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .videos > figure {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Loop from '../components/Loop.astro';
+
+const demo = 'https://kr0ss0.github.io/yarn/?run=2p8L9LzGUWWbtTA7Huba';
+const repo = 'https://github.com/KR0SS0/yarn';
+---
+
+<Base
+  title="React: Yarn | Linus Ekberg"
+  description="Yarn, a speedrun verification tool that replaced up to an hour of manual moderator work with a 60-second audit."
+>
+  <article class="plain wrap">
+    <h1 class="page-title">Yarn - Speedrun verification tool</h1>
+    <div class="intro-grid">
+      <div>
+        <p class="lead">
+          A tool that replaced up to an hour of manual moderator work with a 60-second audit. Built for the competitive
+          speedrunning community.
+        </p>
+        <ul class="lead-list tech">
+          <li>React</li>
+          <li>TypeScript</li>
+          <li>Tailwind CSS</li>
+          <li>Firebase Firestore</li>
+          <li>YouTube iFrame API</li>
+          <li>Jest</li>
+          <li>GitHub Actions</li>
+          <li>CI/CD Pipeline</li>
+        </ul>
+        <a class="lead repo" href={repo}>
+          <Img name="github-mark-edited-edited.png" width={40} />
+          <span>GitHub Page</span>
+        </a>
+      </div>
+      <Loop name="example" width={518} label="Yarn verifying the loads of a run" class="hero" />
+    </div>
+
+    <p class="lead try">
+      Try it live with Sample Data: <a href={demo}>{demo}</a><br />
+      (Press the Reset-button to clear data)
+    </p>
+
+    <div class="body">
+      <h2 class="subhead">The problem</h2>
+      <p>
+        Competitive speedrunning runs on Load Removed Time. The clock pauses during loading screens so that hardware speed
+        doesn't determine who wins. For over a decade, the verification process had an unavoidable flaw:
+      </p>
+      <p>
+        A runner times their own loads. A moderator then re-times the entire video from scratch to confirm the runner
+        wasn't mistaken. For a long run this takes up to an hour of duplicated work, on every submission.
+      </p>
+      <p>Yarn eliminates the redundancy entirely.</p>
+
+      <h2 class="subhead">How it works</h2>
+      <p>Yarn splits the process into two modes.</p>
+      <p>
+        Runner mode: The runner marks each load start and end frame-by-frame directly against their YouTube video, then
+        exports their markers as a shareable cloud link or JSON file.
+      </p>
+      <p>
+        Verifier mode: The moderator opens the shared link and is dropped straight into a structured audit. Instead of
+        scrubbing through video manually, they use automated jump-points that snap the playhead to the exact frame before,
+        at, and after each load. Visual confirmation replaces data entry.
+      </p>
+      <p>
+        The result: verification time drops from up to an hour to under 60 seconds. The timing data is fully public,
+        meaning any community member can inspect the exact frames used for a record, removing the "black box" from
+        competitive moderation.
+      </p>
+
+      <div class="checks">
+        <section class="validation">
+          <h2 class="subhead">Validation Engine</h2>
+          <p>
+            Yarn includes a real-time validation system that monitors the marker timeline as the runner works. It
+            automatically detects:
+          </p>
+          <ul>
+            <li>Load screens that overlap each other</li>
+            <li>Invalid durations where the end frame precedes the start</li>
+            <li>Markers placed outside the boundaries of the timed run</li>
+          </ul>
+          <p>Every inconsistency is flagged instantly with a contextual warning. No invalid dataset can be exported.</p>
+        </section>
+        <section class="testing">
+          <h2 class="subhead">Testing &amp; CI/CD</h2>
+          <p>
+            The project ships with unit tests on pure utility functions and a CI/CD pipeline via GitHub Actions that runs
+            the full test on every push and deploys automatically to GitHub Pages on merge to main.
+          </p>
+        </section>
+        <Img name="yarn-warning-text.png" width={272} alt="Overlap and Invalid warnings in Yarn" class="warn-text" />
+        <Img name="yarn-warning-list.png" width={200} alt="Timing markers with Invalid and Overlap flags" class="warn-list" />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .intro-grid {
+    margin-top: 8px;
+  }
+
+  .intro-grid .lead {
+    max-width: 345px;
+  }
+
+  .tech {
+    margin: 24px 0 26px;
+  }
+
+  .repo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .repo span {
+    text-decoration: underline;
+  }
+
+  .try {
+    margin-top: 30px;
+    line-height: 1.7;
+  }
+
+  .try a {
+    overflow-wrap: anywhere;
+  }
+
+  .checks {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 272px 200px;
+    column-gap: 16px;
+    margin-top: 20px;
+  }
+
+  .validation {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    padding-top: 6px;
+  }
+
+  .testing {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .testing p {
+    line-height: 1.88;
+  }
+
+  .checks :global(.warn-text) {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 6px;
+  }
+
+  .checks :global(.warn-list) {
+    grid-column: 3;
+    grid-row: 1 / 3;
+  }
+
+  @media (max-width: 860px) {
+    .intro-grid .lead {
+      max-width: none;
+    }
+
+    .checks {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: 20px;
+    }
+
+    .validation,
+    .testing,
+    .checks :global(.warn-text),
+    .checks :global(.warn-list) {
+      grid-column: 1;
+      grid-row: auto;
+    }
+  }
+</style>

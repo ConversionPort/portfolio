@@ -1,0 +1,306 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const skills = [
+  { icon: 'java.svg', label: 'Java' },
+  { icon: 'csharp.svg', label: 'C#' },
+  { icon: 'cib-dot-net-edited.png', label: '.NET', wide: true },
+  { icon: 'akar-icons-react-fill.png', label: 'React' },
+  { icon: 'ri-javascript-line.png', label: 'JavaScript' },
+  { icon: 'github.svg', label: 'GitHub' },
+  { icon: 'unity.svg', label: 'Unity' },
+  { icon: 'unreal.svg', label: 'Unreal Engine' },
+  { icon: 'proicons-typescript.png', label: 'TypeScript' },
+  { icon: 'trello.svg', label: 'Trello' },
+  { icon: 'audacity.svg', label: 'Audacity' },
+  { icon: 'photoshop.svg', label: 'Photoshop' },
+  { icon: 'simple-icons-autodeskmaya.png', label: 'Maya' },
+  { icon: 'dashicons-html.png', label: 'HTML' },
+];
+---
+
+<Base title="Linus Ekberg | Portfolio" home>
+  <section class="intro">
+    <div class="intro-inner wrap">
+      <div class="about">
+        <Img name="blue8.png" width={307} class="circle c-a1" />
+        <Img name="blue9-edited.png" width={339} class="circle c-a2" />
+        <h2 class="serif-heading">About me</h2>
+        <div class="about-text">
+          <p>
+            Hi, I'm Linus Ekberg. I build systems, and it started at a young age when I got a Java programming book and
+            used it to write my first programs and mods.
+          </p>
+          <p>
+            That hobby stuck around and turned into a B.S. in Computer and System Sciences from Stockholm University,
+            where most of my time went to Java, C#, and object oriented design.
+          </p>
+          <p>
+            Outside of work, I've been organizing and participating in online charity events with production. Turns out
+            running one is mostly about coordinating a lot of people under pressure without letting anything fall apart.
+            I also enjoy going out for runs and aim to complete my first marathon next year.
+          </p>
+        </div>
+      </div>
+      <div class="skills">
+        <h2 class="serif-heading">Proficiencies</h2>
+        <ul class="icon-grid">
+          {
+            skills.map(({ icon, label, wide }) => (
+              <li>
+                <span class:list={['icon', { wide }]} role="img" aria-label={label} title={label} style={`--src: url('/icons/${icon}')`} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-band" aria-hidden="true"></div>
+
+  <section id="projects" class="projects wrap">
+    <Img name="blue9.png" width={600} class="circle c-p1" />
+    <Img name="blue9-edited.png" width={397} class="circle c-p2" />
+    <Img name="blue9-edited.png" width={463} class="circle c-p3" />
+    <Img name="blue9.png" width={405} class="circle c-p4" />
+
+    <h2 class="serif-heading wide">Current/Recent Projects</h2>
+    <div class="cards recent">
+      <ProjectCard title="Restitched (Unity C#, Steam)" href="/restitched" image="thumbnail.png" width={416} />
+      <ProjectCard title="BattleshipDB (C# .NET)" href="/battleshipdb" image="icon-park-outline-frigate.png" width={416} />
+      <ProjectCard title="Yarn (React/TypeScript, Firebase)" href="/yarn" image="yarn-thumbnail.png" width={416} />
+      <ProjectCard title="Maraplan (Java Spring Boot, React)" href="/maraplan" image="maraplan-icon-small-edited.png" width={416} />
+    </div>
+
+    <h2 class="serif-heading wide other">Other Projects</h2>
+    <div class="cards single">
+      <ProjectCard title="Brew Besties (Unity C# & Design, Steam)" href="/brewbesties" image="maincapsule-bb.png" width={433} />
+    </div>
+    <div class="cards small">
+      <ProjectCard
+        title="Potion Pop! (Unity C# & Design, Google Play)"
+        href="/potionpop"
+        image="screenshot-2022-04-28-at-15-53-51.png"
+        width={364}
+        size={22}
+      />
+      <ProjectCard
+        title="Bachelor's thesis - Sensors in Inclusive Virtual Reality Games for People with Intellectual Disability"
+        href="/beamsabervr"
+        image="beamsabervr.png"
+        width={364}
+        size={20}
+        titleWidth={468}
+      />
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---- About me + Proficiencies ---- */
+  .intro {
+    position: relative;
+    overflow: hidden;
+    margin-top: 2px;
+    background: linear-gradient(#fff 0%, #fafafa 100%);
+  }
+
+  .intro-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 450px) minmax(0, 450px);
+    gap: 40px;
+    min-height: 485px;
+    padding: 15px 20px 40px;
+  }
+
+  .about {
+    position: relative;
+  }
+
+  .about > :not(.circle),
+  .projects > :not(.circle) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* The circles are <img>s rendered by the Img component, so these selectors must be global. */
+  .intro :global(.circle),
+  .projects :global(.circle) {
+    position: absolute;
+    z-index: 0;
+    max-width: none;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .intro :global(.c-a1) {
+    left: -249px;
+    top: 11px;
+    width: 307px;
+  }
+
+  .intro :global(.c-a2) {
+    left: -141px;
+    top: -5px;
+    width: 339px;
+  }
+
+  .about-text {
+    max-width: 421px;
+    margin-top: 16px;
+  }
+
+  .about-text p + p {
+    margin-top: 1.88em;
+  }
+
+  .icon-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    justify-content: center;
+    row-gap: 25px;
+    margin-top: 32px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .icon-grid li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+  }
+
+  .icon-grid li:nth-child(13) {
+    grid-column: 2;
+  }
+
+  .icon {
+    display: block;
+    width: 52px;
+    height: 52px;
+    background: var(--icon);
+    -webkit-mask: var(--src) center / contain no-repeat;
+    mask: var(--src) center / contain no-repeat;
+  }
+
+  .icon.wide {
+    width: 60px;
+  }
+
+  .divider-band {
+    height: 40px;
+    background: linear-gradient(352deg, var(--band-light) 0%, var(--band-light) 25%, #fff 100%);
+  }
+
+  /* ---- Projects ---- */
+  .projects {
+    position: relative;
+    padding-top: 28px;
+  }
+
+  .projects :global(.c-p1) {
+    left: 319px;
+    top: 225px;
+    width: 600px;
+  }
+
+  .projects :global(.c-p2) {
+    left: 583px;
+    top: 149px;
+    width: 397px;
+  }
+
+  .projects :global(.c-p3) {
+    left: 91px;
+    top: 1097px;
+    width: 463px;
+  }
+
+  .projects :global(.c-p4) {
+    left: 464px;
+    top: 1268px;
+    width: 405px;
+  }
+
+  .serif-heading.wide {
+    width: 902px;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+
+  .cards {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  .recent {
+    grid-template-columns: repeat(2, minmax(0, 434px));
+    column-gap: 44px;
+    row-gap: 114px;
+    margin-top: 71px;
+  }
+
+  .other {
+    margin-top: 66px;
+  }
+
+  .single {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+  }
+
+  .small {
+    grid-template-columns: repeat(2, minmax(0, 382px));
+    column-gap: 121px;
+    align-items: end;
+    margin-top: 95px;
+  }
+
+  @media (max-width: 1012px) {
+    .intro :global(.circle),
+    .projects :global(.circle) {
+      display: none;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .intro-inner {
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 0;
+      padding: 15px 0 32px;
+    }
+
+    .about-text {
+      max-width: none;
+    }
+
+    .recent,
+    .small {
+      grid-template-columns: minmax(0, 434px);
+      row-gap: 48px;
+    }
+
+    .recent {
+      margin-top: 40px;
+    }
+
+    .small {
+      margin-top: 48px;
+    }
+
+    .other {
+      margin-top: 56px;
+    }
+  }
+
+  @media (max-width: 440px) {
+    .icon-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

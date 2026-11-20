@@ -1,0 +1,267 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import YouTube from '../components/YouTube.astro';
+import Steam from '../components/Steam.astro';
+import Video from '../components/Video.astro';
+import Loop from '../components/Loop.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+---
+
+<Base
+  title="Unity: Restitched | Linus Ekberg"
+  description="Restitched by Trixel Creative: gameplay systems and editor tools for a community-driven 2.5D platformer."
+>
+  <div class="project wrap">
+    <Card class="intro-card">
+      <div class="cols top">
+        <div class="stack">
+          <div>
+            <h1 class="page-title">Restitched - Trixel Creative</h1>
+            <ul class="facts">
+              <li>Team: 15-20 people</li>
+              <li>Unity, C#, .NET</li>
+              <li>Role: Programmer/Engineer</li>
+              <li>In development (joined February 2025, ongoing)</li>
+            </ul>
+          </div>
+          <div class="prose emph">
+            <p>
+              Restitched is a community-driven 2.5D platformer featuring robust level and costume creation tools. My role
+              focuses on engineering scalable gameplay systems and editor tools designed for a networked multiplayer
+              environment, ensuring that players can create, share, and play content seamlessly.
+            </p>
+            <p class="note">
+              <em>
+                As of now, I can only share what has already been published by Trixel Creative. Therefore, I am limited
+                in what I can present here.
+              </em>
+            </p>
+          </div>
+          <Steam app={1361090} title="Restitched on Steam" />
+        </div>
+        <div class="stack trailers">
+          <YouTube id="nlUnVR6NdT4" title="Restitched - Official Trailer" />
+          <YouTube id="ZoXH1_Vgt-k" title="Restitched | Official Wardrobe Trailer" />
+        </div>
+      </div>
+    </Card>
+
+    <Card title="Wardrobe">
+      <p class="center emph">Restitched: Wardrobe Demo is out now to try!</p>
+      <Steam app={4649960} title="Restitched: Wardrobe Demo on Steam" class="demo-widget" />
+      <div class="wardrobe">
+        <div class="prose">
+          <p>
+            I engineered tools for the character customization architecture for the <strong>Wardrobe Demo</strong>. This
+            standalone release is designed to populate the <strong>Steam Workshop</strong> and stress-test our deployment
+            pipelines. Importantly, all assets created &amp; uploaded during this phase are fully forward-compatible with
+            the release of the main game's wardrobe launch.
+          </p>
+          <p>
+            One of my focuses was the <strong>Stamping System</strong>, a feature allowing players to project and layer
+            decals onto 3D character meshes. Ensuring precision and compatibility across hundreds of costume pieces, with
+            virtually an infinite amount of combinations, presented unique technical challenges.
+          </p>
+          <ul>
+            <li>
+              Pixel-Perfect Selection (GPU ID Buffers):
+              <ul>
+                <li>
+                  <strong>The Challenge:</strong> Standard raycasting was insufficient for selecting specific stamps, especially
+                  when they overlapped or had complex shapes. Initially, clicking a stamp often selected its square UV bounding
+                  box rather than the visible pixels, making it impossible to click "through" the transparency of one stamp to
+                  select another behind it.
+                </li>
+                <li>
+                  <strong>The Solution:</strong> I implemented a GPU-based selection system using Multiple Render Targets (MRT).
+                  This allowed me to generate a unique ID map in parallel with the visual render without incurring the cost of a
+                  second geometry pass. However, standard shaders drew the entire quad to the ID buffer. I modified the fragment
+                  shader to apply a hard alpha clip to the ID output (discarding transparent pixels) while preserving smooth alpha
+                  blending for the visual color output. This ensured click detection matched the visual shape perfectly.
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <figure class="short">
+          <YouTube id="7r0Hq0VEJoQ" title="Wardrobe Overview by Plush Piney" vertical />
+          <figcaption>Wardrobe Overview by Plush Piney</figcaption>
+        </figure>
+      </div>
+      <ul class="prose continued">
+        <li>
+          Optimizing GPU Readbacks:
+          <ul>
+            <li>
+              <strong>The Challenge:</strong> To identify which stamp the user was hovering over, the system needed to read
+              the pixel color from the ID texture on the GPU. Doing this every frame (Texture2D.ReadPixels) would cause
+              significant CPU-GPU synchronization stalls, killing performance.
+            </li>
+            <li>
+              <strong>The Solution:</strong> I implemented texture caching. Instead of reading from the GPU every frame, the
+              system pulls a readable copy of the texture to the CPU only when the user switches cosmetic targets. Subsequent
+              hover checks are done via a fast array lookup on the CPU. I further optimized this by throttling the detection
+              logic to run only when necessary (e.g., on stamping changes, mouse movement), rather than inside the Update loop.
+            </li>
+          </ul>
+        </li>
+        <li>
+          Data Integrity &amp; Serialization:
+          <ul>
+            <li>
+              <strong>The Challenge:</strong> Managing the lifecycle of stamps (adding, removing, re-indexing) often led to
+              desynchronization between the visual render and the underlying data structure, particularly when stamps were
+              deleted from the middle of the stack.
+            </li>
+            <li>
+              <strong>The Solution:</strong> I designed a robust management system that ensures the "Runtime ID" (used for GPU
+              picking) always maps correctly to the stamp's index in the underlying data collection, auto-correcting IDs
+              whenever the stack is modified or loaded from a save file.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </Card>
+
+    <Card title="Level Editor Architecture">
+      <div class="prose">
+        <!-- Keep inline tags off line edges: Astro drops a line break that touches a tag. -->
+        <p>
+          During my work on Restitched, I have focused on the level creation tools and gameplay systems, with an <strong>emphasis</strong> on <strong>stability</strong> and <strong>network compatibility</strong>.
+          Modularity is key, since Restitched is made of a wide variety of placeable objects, the <strong>tools</strong> must be <strong>flexible</strong>, <strong>easy to use</strong> and work <strong>reliably</strong> in a <strong>networked environment</strong>.
+          To support this, I designed datasets where designers can easily create new data with unique properties. For
+          example, I implemented a lethal dataset that allows designers to easily define lethals (property that makes objects
+          dangerous). Once defined, these automatically appear in the level editor, giving players immediate access without
+          additional engineering work.
+        </p>
+      </div>
+      <div class="cols media-pair">
+        <figure>
+          <Video name="dev-video-lethal-tool-shaders-progress-134264553" width={449} class="shadow" label="Applying lethality to an object" />
+          <figcaption>Video of applying lethality to object.</figcaption>
+        </figure>
+        <figure>
+          <Loop name="copy-lethals" width={449} label="Copying the lethal type between objects" />
+          <figcaption>Shortcut to copy and paste the lethal type just by clicking on other objects.</figcaption>
+        </figure>
+      </div>
+      <div class="prose">
+        <p>
+          I'm currently developing the joint and connector system for Restitched's level creator. These tools allow players
+          to link objects together with physics-driven behaviors such as pistons, strings, bolts, and motors. The system is
+          designed to support a wide variety of connectors within a shared framework, making it straightforward to expand
+          with new types in the future.
+        </p>
+        <p>
+          Since Restitched supports multiplayer creation, an additional challenge is ensuring physics-based interactions
+          remain deterministic, stable and synchronized across the network. The goal is to provide designers and players
+          with responsive and reliable building blocks that enable the creation of complex contraptions and mechanics.
+          Joints and connectors aim is to make levels feel more alive as they interact and manipulate physics. This feature
+          is still in development and has not yet been showcased publicly.
+        </p>
+      </div>
+      <figure class="feature">
+        <YouTube id="qdFmEQhdZ_Y" title="Restitched | Lethal Tool Feature" />
+        <figcaption>Lethal tool that I worked on</figcaption>
+      </figure>
+    </Card>
+
+    <Card class="more">
+      <p>Wanna know more about my projects? Read more here:</p>
+      <ProjectCard href="/brewbesties" image="maincapsule-bb.png" width={400} ratio="400 / 216" alt="Brew Besties" />
+    </Card>
+  </div>
+</Base>
+
+<style>
+  /* Classes passed to the Card component land on its own element, so they need :global. */
+  :global(.intro-card) {
+    padding: 18px 34px 32px 23px;
+  }
+
+  .top {
+    grid-template-columns: minmax(0, 500px) minmax(0, 401px);
+    justify-content: space-between;
+  }
+
+  .facts {
+    margin-top: 6px;
+  }
+
+  .prose {
+    margin-top: 0;
+  }
+
+  .note {
+    margin-top: 0 !important;
+  }
+
+  .trailers {
+    gap: 48px;
+    padding-top: 22px;
+  }
+
+  :global(.demo-widget) {
+    margin: 6px auto 30px;
+  }
+
+  .wardrobe {
+    display: grid;
+    grid-template-columns: minmax(0, 580px) 236px;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .short {
+    padding-top: 10px;
+  }
+
+  .prose ul,
+  .continued {
+    margin-top: 12px;
+    line-height: 1.75;
+  }
+
+  .continued {
+    padding-left: 1.4em;
+  }
+
+  .continued ul {
+    list-style: circle;
+  }
+
+  .media-pair {
+    margin: 30px 0 30px;
+  }
+
+  .feature {
+    width: min(480px, 100%);
+    margin: 30px auto 0;
+  }
+
+  :global(.more) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 6px;
+    padding-top: 18px;
+    padding-bottom: 12px;
+  }
+
+  @media (max-width: 860px) {
+    :global(.intro-card) {
+      padding: 16px 18px 26px;
+    }
+
+    .top,
+    .wardrobe {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .short {
+      width: min(280px, 100%);
+      margin-inline: auto;
+    }
+  }
+</style>

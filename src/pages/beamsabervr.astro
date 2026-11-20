@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import YouTube from '../components/YouTube.astro';
+import PdfLink from '../components/PdfLink.astro';
+---
+
+<Base
+  title="Unity: BeamsaberVR | Linus Ekberg"
+  description="BeamsaberVR, a VR prototype testing how sensors and inputs can make VR games more accessible for people with intellectual disability."
+>
+  <article class="plain wrap bs">
+    <div class="top">
+      <div>
+        <h1 class="page-title">VR Prototype: BeamsaberVR</h1>
+        <ul class="lead-list">
+          <li>2 person project</li>
+          <li>Unity, C#, Photoshop, GitHub, Fmod</li>
+          <li>Responsibilities: Game design, programming, sound design.</li>
+        </ul>
+        <p class="lead read-more"><strong>Read more about this project here</strong>:</p>
+        <p class="lead">Research Paper (English, shorter)</p>
+        <PdfLink href="/files/beamsabervr-research-paper.pdf" label="Research paper (English, shorter)" />
+      </div>
+      <figure>
+        <YouTube id="2auNzI8XmEs" title="BeamSaberVR Tutorial Demonstration" />
+        <figcaption>Gameplay of the tutorial mode.</figcaption>
+      </figure>
+    </div>
+
+    <div class="links">
+      <div>
+        <p class="lead">Full thesis (Swedish)</p>
+        <PdfLink href="/files/beamsabervr-thesis-swedish.pdf" label="Full thesis (Swedish)" />
+      </div>
+      <div>
+        <p class="lead">Source Code</p>
+        <a class="repo" href="https://github.com/KR0SS0/XR4ALL" aria-label="Source code on GitHub">
+          <Img name="github-mark-edited-edited.png" width={86} />
+        </a>
+      </div>
+    </div>
+
+    <div class="text">
+      <p>
+        The goal of this project was to make a prototype that tested how different sensors and inputs could be adapted to make
+        VR games more accessible for people with various disabilities.
+      </p>
+      <div>
+        <p>The prototype included two modes:</p>
+        <ul>
+          <li>
+            Endless mode: Waves of unique drones attack the player, and points are earned based on how long the player survives.
+          </li>
+          <li>Tutorial: This mode introduces all the game's mechanics and allows players to learn them at their own pace.</li>
+        </ul>
+      </div>
+      <p>
+        We experimented with different input methods, including eye-tracking, a laser distance sensor, and just two buttons. For
+        the final playtest, we focused on voice recognition, joystick-controlled hand steering, and the default Meta controller,
+        as we felt these options offered the best potential.
+      </p>
+      <p>
+        Initially, the prototype was a carnival simulator where players could walk around and play games like ring toss, swing
+        the hammer, and shoot ducks. However, after receiving feedback, I realized that many people with disabilities wanted to
+        play more engaging, "real" games. To better test various input methods, I decided to focus on a single, more polished
+        game rather than several smaller carnival games.
+      </p>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .bs {
+    padding: 22px 46px 0 28px;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 401px;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .top figure {
+    margin-top: 10px;
+  }
+
+  .read-more {
+    margin-top: 12px;
+  }
+
+  .read-more strong {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: 430px auto;
+    margin-top: 28px;
+    padding-left: 20px;
+  }
+
+  .repo {
+    display: inline-block;
+    margin-top: 6px;
+    transition: opacity 0.15s;
+  }
+
+  .repo:hover {
+    opacity: 0.75;
+  }
+
+  .text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-top: 40px;
+    padding-left: 14px;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  .text ul {
+    padding-left: 1.8em;
+  }
+
+  @media (max-width: 860px) {
+    .bs {
+      padding: 22px 0 0;
+    }
+
+    .top,
+    .links {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 24px;
+    }
+
+    .links {
+      padding-left: 0;
+    }
+
+    .text {
+      padding-left: 0;
+      font-size: 16px;
+    }
+  }
+</style>

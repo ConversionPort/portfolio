@@ -1,0 +1,270 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Figure from '../components/Figure.astro';
+
+const googlePlay = 'https://play.google.com/store/apps/details?id=com.WitchHutGames.PotionPop';
+---
+
+<Base
+  title="Unity Mobile: Potion Pop | Linus Ekberg"
+  description="Potion Pop!, a mobile game made in 6 weeks by a team of 6: gameplay design, level design and gameplay programming."
+>
+  <article class="plain wrap pp">
+    <div class="top">
+      <div>
+        <h1 class="page-title">Mobile Game: Potion Pop!</h1>
+        <ul class="facts small">
+          <li>6 weeks</li>
+          <li>Group Project (6)</li>
+          <li>Unity, C#, Photoshop, GitHub</li>
+          <li>Responsibilities: Gameplay Design, Level Design, Gameplay Programming.</li>
+          <li>Additional work: Animation, Sprites, Sound.</li>
+        </ul>
+      </div>
+      <div class="brand">
+        <div class="brand-row">
+          <Img name="beaverimage.png" width={110} alt="" />
+          <Img name="loggamed-text.png" width={227} alt="Witch Hut Games" />
+        </div>
+        <Img name="screenshot-2022-04-28-at-15-53-51.png" width={373} alt="Potion Pop! title art" />
+      </div>
+    </div>
+
+    <div class="top second">
+      <p>
+        On this project I was responsible for game and level design, but I was <strong>heavily</strong> involved in programming
+        as well. Additionally, I made sprites in Photoshop and animated in Unity.
+      </p>
+      <a class="play-link" href={googlePlay}>
+        <span>Try it out on Google Play!</span>
+        <Img name="loggablaturkos.png" width={100} alt="" />
+      </a>
+    </div>
+
+    <h2 class="phase">~Prototyping phase~</h2>
+    <div class="flow">
+      <div class="row media-left">
+        <Figure gif="ezgif-com-gif-maker" width={371} caption="Earliest prototype. Cauldron/Circle follows touch." />
+        <div class="prose text">
+          <p>
+            During this phase, we knew the name was going to be "Potion Pop!", the game was going to be about healing animals
+            by making potions, and the player would collect ingredients by moving a cauldron.
+          </p>
+          <p>
+            Using that information, I <strong>immediately</strong> got to work. It was <strong>essential</strong> my team was <strong>on the right page</strong>, so
+            I made short videos to showcase how the core mechanics were developing.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="prose text">
+          <p>
+            I wanted the game to <strong>sway more towards satisfying and addicting</strong>, rather than hectic and difficult.
+            One way to achieve this goal was to make the spawning quite predictable - it followed a pattern and the ingredients
+            were falling slowly.
+          </p>
+          <p>
+            Obviously, game art and sound design had a big part in achieving this <strong>goal</strong>, but I thought to myself:
+            "How can I work towards this <strong>pillar</strong> in the game's design?" This led me to adding a <strong><em>Frenzy</em></strong> mechanic.
+            From time to time - multiple ingredients would spawn together in an easy to collect pattern.
+          </p>
+        </div>
+        <div class="col">
+          <Figure loop="gameplay-cropped" width={399} caption="Spawning ingredients. First iteration could only spawn in a wavy pattern" />
+          <Figure loop="spawn" width={399} caption="Short burst of three ingredients. Later on in development this was increased to usually be about 6-10 in a row, which felt more satisfying." />
+        </div>
+      </div>
+      <p class="text">
+        The game <strong>needed to have more depth</strong>. At this point we knew each level would have a scoring system where
+        the player could achieve up to three stars. We also knew there would be some ingredients that the player would have to
+        avoid.
+      </p>
+    </div>
+
+    <h2 class="phase">~Level design/finishing phase~</h2>
+    <div class="flow">
+      <div class="row">
+        <div class="prose text tight">
+          <p>
+            I started off by making a simple document on how each level should differentiate from each other, what would be
+            introduced and how difficult they should be.
+          </p>
+          <p>
+            I had to think of <strong>creative ways</strong> to make the levels feel <strong>unique</strong> and <strong>non-repetitive</strong> while
+            not working with a lot of mechanics.
+          </p>
+          <p>
+            Introducing power-ups and de-buffs! Slow-motion, fast forward, freeze and magnet! The magnet was an addition that was
+            aimed to move closer to <strong>achieving the pillar</strong> of the game feeling <strong>satisfying to play</strong>.
+          </p>
+          <p>
+            To make the nine levels more <strong>distinct</strong>, I added <strong>de-buffs</strong>. Having more elements allowed
+            me to <strong>create variety</strong> by controlling what and how these elements showed up in each level.
+          </p>
+        </div>
+        <Figure loop="powerups" width={291} alt="Power-ups falling in a level" />
+      </div>
+      <div class="row media-left">
+        <Figure video="showcase1" width={297} alt="The first level of Potion Pop!" />
+        <div class="prose text middle">
+          <p>
+            The first level in the game simply introduces the player to the game's core-mechanic. I didn't want this level to be
+            hard, yet not easy enough that the player can accidentally beat it. The <strong>player needs to understand how the game works</strong> to progress.
+          </p>
+          <p>
+            I found this method more fitting than adding a tutorial because it <strong>avoids disrupting</strong> the <strong>gameplay flow</strong>.
+            I aimed to provide a more <strong>intuitive learning experience</strong>, allowing players to learn through <strong>action</strong> and <strong>feedback</strong> within the game environment.
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <p class="text middle">
+          This level is somewhere in the middle of the game. By now, the player already knows how to play the game and have
+          familiarized themselves with the mechanics. Therefore, I thought to make this level interesting - I could change up the
+          formula a bit. Instead of collecting ingredients being the focal point - it could instead be about <strong>avoiding the ice cubes</strong>.
+          This led to an <strong>interesting challenge</strong> and a <strong>unique twist</strong> on the gameplay.
+        </p>
+        <Figure video="8mb-video-asc-yhq4y98s" width={297} alt="A level in the middle of Potion Pop! about avoiding ice cubes" />
+      </div>
+      <div class="row media-left">
+        <Figure video="showcase3" width={297} alt="The magnet level of Potion Pop!" />
+        <div class="text middle">
+          <p>
+            The <strong>goal</strong> of this level was to make the player really <strong>feel the power of the magnet</strong>.
+            The level is pretty much unbeatable without collecting the magnet power-up. This was meant to feel a bit like a bonus
+            level, where the player has time to have fun with the magnet, before the challenging last two levels.
+          </p>
+          <p class="release">Release time!</p>
+          <a class="play-link" href={googlePlay}>
+            <span>Try it out on Google Play!</span>
+            <Img name="loggablaturkos.png" width={100} alt="" />
+          </a>
+        </div>
+      </div>
+      <div class="animals" aria-hidden="true">
+        <Img name="hedgehogimage.png" width={222} />
+        <Img name="racoonimage.png" width={268} />
+        <Img name="deerfromfrontimage.png" width={418} />
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .pp {
+    padding-left: 30px;
+  }
+
+  .top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 373px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .top.second {
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .facts.small {
+    margin-top: 6px;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .brand {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding-top: 20px;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .text,
+  .second p {
+    font-size: 20px;
+    line-height: 1.67;
+  }
+
+  .second p {
+    max-width: 400px;
+  }
+
+  .text strong,
+  .second strong {
+    font-weight: 600;
+    color: #000;
+  }
+
+  .prose.tight p + p {
+    margin-top: 1em;
+  }
+
+  .middle {
+    align-self: center;
+  }
+
+  .play-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    color: #000;
+    text-decoration: none;
+  }
+
+  .play-link:hover span {
+    text-decoration: underline;
+  }
+
+  .release {
+    margin: 40px 0 10px;
+  }
+
+  .phase {
+    margin: 50px 0 24px;
+    font-family: var(--font-display);
+    font-size: 26px;
+    color: var(--text);
+    text-align: center;
+  }
+
+  .animals {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+  }
+
+  .animals :global(img) {
+    min-width: 0;
+    flex: 0 1 auto;
+  }
+
+  @media (max-width: 860px) {
+    .pp {
+      padding-left: 0;
+    }
+
+    .top {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .text,
+    .second p {
+      font-size: 17px;
+    }
+
+    .animals {
+      gap: 12px;
+    }
+  }
+</style>

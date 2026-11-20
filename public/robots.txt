@@ -1,0 +1,12 @@
+# This site is kept out of search engines.
+#
+# Pages are deliberately NOT blocked here: every page carries
+# <meta name="robots" content="noindex, nofollow">, and a crawler has to be able to
+# fetch a page to see that tag. (A page blocked here can still be listed as a bare link.)
+#
+# Files that can't carry the tag (images, videos, icons, PDFs) are blocked instead.
+User-agent: *
+Disallow: /_astro/
+Disallow: /media/
+Disallow: /icons/
+Disallow: /files/

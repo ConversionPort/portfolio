@@ -1,0 +1,39 @@
+---
+// An image from src/assets/media, resized and converted to WebP at build time.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/media/*.{png,jpg,jpeg,webp}', { eager: true });
+
+interface Props {
+  name: string;
+  alt?: string;
+  /** Display width in CSS pixels on a desktop screen. Defaults to the image's own width. */
+  width?: number;
+  class?: string;
+  eager?: boolean;
+  /** Crop to this shape, e.g. "449 / 79" (the old site showed some images cropped). */
+  aspect?: string;
+  /** Which part to keep when cropping, e.g. "top" or "bottom". */
+  position?: string;
+}
+
+const { name, alt = '', width, class: className, eager = false, aspect, position = 'center' } = Astro.props;
+const mod = files[`../assets/media/${name}`];
+if (!mod) throw new Error(`Image not found in src/assets/media: ${name}`);
+const img = mod.default;
+const display = Math.min(width ?? img.width, img.width);
+const widths = [...new Set([display, Math.min(display * 2, img.width)])];
+const sizes = `(max-width: ${display + 2 * 16}px) calc(100vw - 32px), ${display}px`;
+---
+
+<Image
+  src={img}
+  alt={alt}
+  width={display}
+  widths={widths}
+  sizes={sizes}
+  loading={eager ? 'eager' : 'lazy'}
+  class={className}
+  style={aspect ? `aspect-ratio: ${aspect}; object-fit: cover; object-position: ${position}` : undefined}
+/>

@@ -1,0 +1,55 @@
+---
+// A short silent looping video that replaces one of the old (huge) GIFs.
+// It plays only while on screen, and shows controls instead if the visitor prefers reduced motion.
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import media from '../data/media.json';
+
+const posters = import.meta.glob<{ default: ImageMetadata }>('../assets/media/posters/*.jpg', { eager: true });
+
+interface Props {
+  name: string;
+  /** Display width in CSS pixels on a desktop screen. */
+  width?: number;
+  label?: string;
+  class?: string;
+}
+
+const { name, width, label, class: className } = Astro.props;
+const loop = (media.loops as Record<string, { src: string; poster: string; width: number; height: number }>)[name];
+if (!loop) throw new Error(`Loop not found in media.json: ${name}`);
+const display = Math.min(width ?? loop.width, loop.width);
+const poster = await getImage({ src: posters[`../assets/media/posters/${loop.poster}`].default, width: Math.min(display * 2, loop.width), format: 'webp' });
+---
+
+<video
+  class:list={['loop', className]}
+  data-loop
+  src={loop.src}
+  poster={poster.src}
+  width={display}
+  height={Math.round((display * loop.height) / loop.width)}
+  muted
+  loop
+  playsinline
+  preload="none"
+  aria-label={label}
+></video>
+
+<script>
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-loop]');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    videos.forEach((v) => (v.controls = true));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          const v = e.target as HTMLVideoElement;
+          if (e.isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        }),
+      { rootMargin: '200px' },
+    );
+    videos.forEach((v) => io.observe(v));
+  }
+</script>

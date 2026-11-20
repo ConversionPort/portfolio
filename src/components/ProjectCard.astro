@@ -1,0 +1,73 @@
+---
+// A project on the home page: a serif title over a framed thumbnail, all one link.
+import Img from './Img.astro';
+
+interface Props {
+  /** Shown above the frame. Without it, `alt` names the link. */
+  title?: string;
+  alt?: string;
+  href: string;
+  image: string;
+  /** Width of the thumbnail inside the frame. */
+  width: number;
+  /** Shape of the thumbnail, e.g. "416 / 227". */
+  ratio?: string;
+  /** Title size in px. */
+  size?: number;
+  /** Width the title may use before wrapping. */
+  titleWidth?: number;
+  class?: string;
+}
+
+const { title, alt = '', href, image, width, ratio = '416 / 227', size = 26, titleWidth = 480, class: className } = Astro.props;
+---
+
+<a
+  class:list={['project-card', className]}
+  href={href}
+  style={`--title-size: ${size}px; --thumb: ${width}px; --title-width: ${titleWidth}px; --ratio: ${ratio}`}
+>
+  {title && <span class="project-card-title">{title}</span>}
+  <span class="frame"><Img name={image} width={width} alt={title ? '' : alt} /></span>
+</a>
+
+<style>
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(var(--thumb) + 18px);
+    max-width: 100%;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .project-card-title {
+    font-family: var(--font-serif);
+    font-size: var(--title-size);
+    line-height: 1.2;
+    text-align: center;
+    width: max-content;
+    max-width: min(var(--title-width), 100vw - 32px);
+  }
+
+  .frame {
+    display: block;
+    width: 100%;
+    padding: 6px;
+    background: #fff;
+    border: 3px solid var(--frame);
+    transition: border-color 0.15s;
+  }
+
+  .frame :global(img) {
+    width: 100%;
+    aspect-ratio: var(--ratio);
+    object-fit: cover;
+  }
+
+  .project-card:hover .frame,
+  .project-card:focus-visible .frame {
+    border-color: var(--frame-hover);
+  }
+</style>

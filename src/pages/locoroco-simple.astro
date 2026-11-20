@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Figure from '../components/Figure.astro';
+import YouTube from '../components/YouTube.astro';
+---
+
+<Base
+  title="Project: LocoRoco Simple | Linus Ekberg"
+  description="LocoRoco Lite, a minimalistic remake made solo in Unity for the S.U.M.M.E.R. game jam, where it placed second."
+>
+  <div class="project wrap">
+    <Card class="solo loco">
+      <div class="cols-loco">
+        <div class="main">
+          <h1 class="page-title">Game Jam: LocoRoco Lite</h1>
+          <ul class="facts">
+            <li>Solo Project</li>
+            <li>Unity</li>
+            <li>
+              Game Jam Theme: S.U.M.M.E.R. (<strong>S</strong>implistic <strong>U</strong>ltra <strong>M</strong>ini<strong>M</strong>alistic <strong>E</strong>pic <strong>R</strong>emake.
+            </li>
+            <li>
+              Game Jam Description: The goal of this game jam was to take a game and break it down to its core mechanics and
+              remake the game in a minimalistic way.
+            </li>
+          </ul>
+          <div class="raleway">
+            <p>
+              I started off by <strong>identifying</strong> what the most <strong>essential mechanics</strong> would be for the game.
+              I thought to myself: <em>What is this game's identity? What makes it fun?</em> Which led me to these core points:
+            </p>
+            <ul>
+              <li><strong>Camera tilting:</strong> The player is controlled by moving tilting the camera up to ~20 degrees.</li>
+              <li>
+                <strong>Growing:</strong> The player should be able to find fruit that grows the player character when eating,
+                which should also affect the physics of the character.
+                <ul>
+                  <li>Additionally, this gives the player a side goal of collecting all the fruit, which is represented on the UI.</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Playfulness:</strong> All aspects of the game should feel playful and childish. Sound design, level
+                design, aesthetic, physics etc.
+              </li>
+            </ul>
+            <p class="finally">
+              Finally, I wanted levels to be <strong>fast</strong> and <strong>easy</strong> to create, as I had very limited time
+              to work on this project, but still wanted as much out of it as possible.
+            </p>
+          </div>
+          <Figure loop="locoroco-creating-level-fast" width={442} alt="Building a LocoRoco Lite level quickly in Unity" />
+        </div>
+        <div class="side">
+          <YouTube id="_ioWPSceqhs" title="S.U.M.M.E.R. Game Jam: LocoRoco Lite" />
+          <Figure loop="locoroco-tilt" width={268} caption="Prototyping: Camera tilting" />
+          <Figure loop="locoroco-eat" width={269} caption="Prototyping: Growing" />
+          <Figure loop="locoroco-physics" width={273} caption="Prototyping: Playful physics" />
+          <p class="raleway outro">
+            This project was <strong>super fun</strong> to work on despite the fact that I didn't have a lot of time to commit to
+            it! It really <strong>taught me</strong> how <strong>fast</strong> you can get a game to a <strong>playable</strong> and <strong>fun</strong> state,
+            as long as you have a few fun and interesting mechanics! I ended up placing second in this game jam!
+          </p>
+        </div>
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  .cols-loco {
+    display: grid;
+    grid-template-columns: minmax(0, 460px) minmax(0, 440px);
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    align-content: start;
+    padding-left: 8px;
+  }
+
+  .main .facts {
+    margin-top: 6px;
+    line-height: 1.8;
+  }
+
+  .main h1 + .facts {
+    margin-top: -20px;
+  }
+
+  .raleway {
+    font-family: var(--font-display);
+    font-size: 16px;
+    line-height: 1.8;
+    color: #222;
+  }
+
+  .raleway strong {
+    font-weight: 700;
+    color: #000;
+  }
+
+  .raleway ul {
+    padding-left: 1.8em;
+  }
+
+  .raleway ul ul {
+    list-style: circle;
+  }
+
+  .finally {
+    margin-top: 2.2em;
+  }
+
+  .side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 26px;
+    align-content: start;
+  }
+
+  .side > :global(.embed) {
+    width: 401px;
+    max-width: 100%;
+  }
+
+  .outro {
+    margin-top: 30px;
+    margin-left: -26px;
+  }
+
+  @media (max-width: 860px) {
+    .cols-loco {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .main {
+      padding-left: 0;
+    }
+
+    .outro {
+      margin-left: 0;
+    }
+  }
+</style>

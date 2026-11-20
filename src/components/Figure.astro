@@ -1,0 +1,56 @@
+---
+// One image, looping clip, small GIF or video, with an optional italic caption underneath.
+import Img from './Img.astro';
+import Loop from './Loop.astro';
+import Video from './Video.astro';
+import media from '../data/media.json';
+
+interface Props {
+  img?: string;
+  loop?: string;
+  gif?: string;
+  video?: string;
+  /** Display width in CSS pixels on a desktop screen. */
+  width: number;
+  caption?: string;
+  /** Defaults to the caption. */
+  alt?: string;
+  /** Center the figure in its container. */
+  center?: boolean;
+  shadow?: boolean;
+}
+
+const { img, loop, gif, video, width, caption, alt, center = false, shadow = false } = Astro.props;
+const text = alt ?? caption ?? '';
+const gifData = gif ? (media.gifs as Record<string, { src: string; width: number; height: number }>)[gif] : undefined;
+if (gif && !gifData) throw new Error(`GIF not found in media.json: ${gif}`);
+---
+
+<figure class:list={['fig', { center }]} style={`--w: ${width}px`}>
+  {img && <Img name={img} width={width} alt={text} />}
+  {loop && <Loop name={loop} width={width} label={text} />}
+  {video && <Video name={video} width={width} label={text} class={shadow ? 'shadow' : undefined} />}
+  {
+    gifData && (
+      <img src={gifData.src} width={width} height={Math.round((width * gifData.height) / gifData.width)} alt={text} loading="lazy" />
+    )
+  }
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  /* A definite width (not a percentage) so grid/flex tracks sized by content get the intended size. */
+  .fig {
+    width: var(--w);
+    max-width: 100%;
+  }
+
+  .fig.center {
+    margin-inline: auto;
+  }
+
+  .fig :global(img),
+  .fig :global(video) {
+    width: 100%;
+  }
+</style>

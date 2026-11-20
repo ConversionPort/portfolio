@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Img from '../components/Img.astro';
+import YouTube from '../components/YouTube.astro';
+---
+
+<Base
+  title="LBP3 - Level - Troubling Motive | Linus Ekberg"
+  description="Troubling Motive, a LittleBigPlanet 3 community level that was awarded a Team Pick."
+>
+  <div class="project wrap">
+    <Card class="solo">
+      <h1 class="page-title">UGC Level - LittleBigPlanet 3 - Troubling Motive</h1>
+      <div class="solo-top">
+        <div>
+          <ul class="facts">
+            <li>Solo project</li>
+          </ul>
+          <div class="solo-text">
+            <p>In this level I wanted two main mechanics. The Paintinator which lets you shoot paintballs, and breakable boxes.</p>
+            <p>
+              The team behind LittleBigPlanet 3 awarded this level with a <em>Team Pick</em>, which is a stamp of approval, and
+              shows up in the game as levels they recommend.
+            </p>
+          </div>
+        </div>
+        <YouTube id="siejGwOMUxU" title="LittleBigPlanet 3 - Troubling Motive" class="video" />
+      </div>
+      <h2 class="subtitle reviews-title">Reviews</h2>
+      <div class="review-cols">
+        <div class="reviews">
+          <Img
+            name="image-14.png"
+            width={472}
+            alt="Review: Pretty short, but wonderfully crafted! Love that it feels like a level from previous games with the scrolling Canyons background and the 3 layers limit."
+          />
+          <Img name="image-13.png" width={472} alt="Review: Fun as hell and well crafted. Good work" />
+          <Img
+            name="image-15.png"
+            width={472}
+            alt="Review: Really awesome level!! The decoration, gameplay, and story was very well made, and flowed really well! I do have to say that it was pretty short, but it was just due to thermometer limitations. Really fun and well crafted! Hoping this gets Team Picked!"
+          />
+        </div>
+        <div class="reviews offset">
+          <Img name="image-16.png" width={465} alt="Review: A really funny platform level with a nice artistic style. Pity it is too short! Anyway, very nice level :)" />
+          <Img name="image-17.png" width={465} alt="Review: Adorable!! All the desing is just perfect! Excellent job : D!" />
+          <Img name="image-18.png" width={465} alt="Review: Wow... just wow!! This is astonishing!! :)" />
+        </div>
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  .solo-top {
+    grid-template-columns: minmax(0, 470px) minmax(0, 431px);
+  }
+
+  .solo-top .facts {
+    margin-top: 0;
+  }
+
+  .solo-top :global(.video) {
+    margin-top: 2px;
+  }
+
+  .reviews-title {
+    margin-top: 28px;
+  }
+
+  .review-cols {
+    display: grid;
+    grid-template-columns: minmax(0, 472px) minmax(0, 465px);
+    margin-top: 4px;
+  }
+
+  .offset {
+    padding-top: 40px;
+  }
+
+  @media (max-width: 860px) {
+    .review-cols {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .offset {
+      padding-top: 0;
+    }
+  }
+</style>

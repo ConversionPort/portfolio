@@ -1,0 +1,199 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+import Video from '../components/Video.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+---
+
+<Base
+  title="Java: Maraplan | Linus Ekberg"
+  description="Maraplan, a marathon planner that builds a week by week training plan from your Strava running data."
+>
+  <article class="plain wrap">
+    <div class="intro-grid">
+      <div>
+        <h1 class="page-title">Maraplan - Marathon planner</h1>
+        <p class="lead">An app that makes a marathon plan based on your running data and preferences.</p>
+        <ul class="lead-list">
+          <li>Java - Spring boot</li>
+          <li>React - TypeScript - Vite</li>
+          <li>PostgreSQL</li>
+          <li>Strava OAuth2 integration</li>
+          <li>100+ backend tests - CI</li>
+          <li>WIP (Work in Progress)</li>
+        </ul>
+      </div>
+      <Img name="maraplan-icon.png" width={189} alt="" class="logo" />
+    </div>
+
+    <div class="body">
+      <h2 class="subhead">What it is</h2>
+      <p>
+        Maraplan is a training plan app for runners. You log in with <a href="https://www.strava.com/">Strava</a>, it looks
+        at what you have actually been running, and it builds you a week by week plan toward a race. I built it while
+        training for my own marathon, mostly because every free plan generator I tried either ignored my actual fitness or
+        just grew the distance by some fixed percent every week with no real logic behind it.
+      </p>
+
+      <h2 class="subhead">The engine</h2>
+      <p>
+        This is the part of the project I care about the most. A lot of training calculators just take your weekly distance
+        and grow it by a fixed percent, and call your long run some fraction of that. It sounds fine until you actually run
+        the numbers. If your long run is a quarter of your weekly volume and your weekly volume peaks at 24km, your longest
+        training run before a half marathon ends up being 6km. That does not get you ready for 21km at all.
+      </p>
+      <p>
+        So the engine works the other way around. First it looks at your last month of running and evaluates your level,
+        based on your weekly volume and your longest run. That level decides how close your long run gets to the actual
+        race distance and how big a piece of your week it is allowed to take up. Then it works backward from that long run
+        to figure out how much weekly volume you actually need, instead of the other way around.
+      </p>
+      <p>
+        From there your weekly distance climbs toward that peak, but never faster than two limits allow at the same time.
+        One is a simple percent per week cap that you control with a slider. The other is something called an acute to
+        chronic workload ratio, basically your training load this week can not be more than 1.3 times your average over
+        the last four weeks. That number is not something I made up, it comes from actual injury research in sports
+        science. On top of that, every fourth week the plan backs off on purpose so your body gets time to catch up instead
+        of always climbing.
+      </p>
+      <p>
+        Closer to the race the plan tapers, and how long that taper is depends on the distance, a marathon gets a longer
+        taper than a 10k would.
+      </p>
+
+      <div class="split">
+        <div>
+          <h2 class="subhead">Strava login</h2>
+          <p>
+            You sign in through your real Strava account, there is no separate password to create. It uses OAuth2, so the
+            app never sees your Strava password, only a token that lets it read your activities, and that token is encrypted
+            before it gets saved.
+          </p>
+
+          <h2 class="subhead">Backend</h2>
+          <p>
+            Java and Spring Boot on top of a PostgreSQL database. The database changes are tracked through migrations, and
+            there is a CI pipeline on GitHub Actions that runs over 100 tests, on every push.
+          </p>
+
+          <h2 class="subhead">Frontend</h2>
+          <p>
+            The frontend is React with TypeScript. It covers the whole flow, logging in, syncing your Strava runs,
+            generating and editing your plan, and showing your progress week by week. There is also a settings menu where
+            you can turn on dark mode, change date format, or switch between kilometers and miles.
+          </p>
+
+          <h2 class="subhead">Why it is not live</h2>
+          <p>
+            I use this myself for my own training, and I never put it online for other people to log into. Part of it is that
+            the moment someone else logs in with their real Strava account, I am responsible for their tokens and their
+            training data. The other part is that I am not a health professional, I just built something based on real
+            training principles I researched, and I do not want random people out there following a plan from my app and
+            getting hurt because of it. So instead of hosting it publicly I recorded a demo of it running instead.
+          </p>
+        </div>
+        <figure class="demo">
+          <Video name="maraplan-demo" width={257} label="Maraplan demo recording" />
+          <figcaption>Demo recording</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="also">
+      <div>
+        <p class="also-title">Also checkout Yarn!</p>
+        <p>Features a live demo and a public github link</p>
+      </div>
+      <ProjectCard
+        title="Yarn (React/TypeScript, Firebase)"
+        href="/yarn"
+        image="yarn-thumbnail.png"
+        width={264}
+        ratio="264 / 141"
+        size={22}
+        titleWidth={360}
+      />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .intro-grid {
+    grid-template-columns: minmax(0, 1fr) 189px;
+    padding-right: 100px;
+  }
+
+  .intro-grid .lead {
+    max-width: 345px;
+    margin-top: 8px;
+  }
+
+  .intro-grid :global(.logo) {
+    margin-top: 37px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 560px) 257px;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .split p {
+    line-height: 1.88;
+  }
+
+  .demo {
+    margin-top: 42px;
+  }
+
+  .also {
+    display: flex;
+    align-items: flex-end;
+    gap: 22px;
+    margin: 140px 0 120px;
+    padding-left: 85px;
+  }
+
+  .also > div {
+    padding-bottom: 104px;
+  }
+
+  .also-title {
+    font-weight: 600;
+    color: #000;
+  }
+
+  @media (max-width: 860px) {
+    .intro-grid {
+      grid-template-columns: minmax(0, 1fr);
+      padding-right: 0;
+    }
+
+    .intro-grid :global(.logo) {
+      width: 140px;
+      margin: 0;
+    }
+
+    .split {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .demo {
+      width: min(257px, 100%);
+      margin: 10px auto 0;
+    }
+
+    .also {
+      flex-direction: column;
+      align-items: center;
+      margin: 60px 0 40px;
+      padding-left: 0;
+    }
+
+    .also > div {
+      padding-bottom: 0;
+      text-align: center;
+    }
+  }
+</style>

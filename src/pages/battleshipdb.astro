@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Img from '../components/Img.astro';
+
+const play = 'https://kr0ss0.github.io/BattleshipsDB/';
+const repo = 'https://github.com/KR0SS0/BattleshipsDB';
+---
+
+<Base
+  title="C#: BattleshipDB | Linus Ekberg"
+  description="BattleshipDB, a Battleship game in C# and .NET 10 with an ASP.NET Core API and a PostgreSQL database."
+>
+  <article class="plain wrap">
+    <h1 class="page-title">BattleshipDB</h1>
+    <div class="intro-grid">
+      <div>
+        <p class="lead">
+          A Battleship game in C# and .NET 10, with an ASP.NET Core API, a PostgreSQL database. Play online in the browser.
+        </p>
+        <ul class="lead-list">
+          <li>C# - .NET 10</li>
+          <li>ASP.NET Core minimal API</li>
+          <li>PostgreSQL + Entity Framework Core</li>
+          <li>Docker</li>
+          <li>xUnit + Testcontainers</li>
+          <li>Github Actions CI/CD</li>
+          <li>Layered Architecture</li>
+        </ul>
+        <p class="lead links">
+          Play it here: <a href={play}>{play}</a><br />
+          Github: <a href={repo}>{repo}</a>
+        </p>
+      </div>
+      <Img name="icon-park-outline-frigate.png" width={330} alt="" class="logo" />
+    </div>
+
+    <div class="body">
+      <h2 class="subhead">What it is</h2>
+      <p>
+        BattleshipDB is just like the classic Battleship game. You place your fleets, then take turns firing at the
+        opponent's board, but with fog of war, meaning you don't know where they have placed their fleets.
+      </p>
+
+      <h2 class="subhead">Architecture</h2>
+      <p>For this project I split it into layers. They all point to Domain.</p>
+      <ul>
+        <li><strong>Domain:</strong> holds the rules and logic. Boards, ships, shots, the enemy shooting strategy algorithm, etc.</li>
+        <li><strong>Infrastructure:</strong> saves and loads games in PostgreSQL using Entity Framework Core.</li>
+        <li>
+          <strong>Api:</strong> is an ASP.NET Core API. It takes a request, uses Infrastructure to load the game, lets the
+          Domain play the move, and saves the result.
+        </li>
+        <li><strong>Web:</strong> is the game and UI.</li>
+      </ul>
+      <Img
+        name="battleship-diagram.png"
+        width={649}
+        alt="Architecture diagram: Battleship.Web and Battleship.Api depend on Battleship.Domain; Battleship.Infrastructure saves games to PostgreSQL in Docker; Domain.Tests and Api.IntegrationTests test them."
+        class="diagram"
+      />
+
+      <h2 class="subhead">Testing</h2>
+      <p>
+        For the game rules I worked test-first. There are over 130 tests. The rules tests run in about a second, and the
+        integration tests start the API against a throwaway PostgreSQL in Docker using Testcontainers. GitHub Actions runs
+        them on every push, and the game only deploys when they pass.
+      </p>
+
+      <h2 class="subhead">Saving games</h2>
+      <p>
+        Every shot is saved as its own row, and a game is loaded by replaying its shots through the rules. If two requests
+        fire at the same game at once, a unique index makes the second one fail with a 409 instead of saving a broken game.
+      </p>
+    </div>
+
+    <p class="lead links bottom">
+      Play it here: <a href={play}>{play}</a><br />
+      Github: <a href={repo}>{repo}</a>
+    </p>
+  </article>
+</Base>
+
+<style>
+  .intro-grid {
+    grid-template-columns: minmax(0, 500px) 330px;
+    justify-content: space-between;
+  }
+
+  .intro-grid .lead:first-child {
+    margin-top: 8px;
+  }
+
+  .intro-grid :global(.logo) {
+    margin-top: -20px;
+  }
+
+  .links {
+    margin-top: 14px;
+  }
+
+  .links a {
+    overflow-wrap: anywhere;
+  }
+
+  .body :global(.diagram) {
+    margin: 36px auto 30px;
+  }
+
+  .bottom {
+    margin: 30px 0 20px;
+  }
+
+  @media (max-width: 860px) {
+    .intro-grid {
+      grid-template-columns: minmax(0, 1fr);
+      padding-right: 0;
+    }
+
+    .intro-grid :global(.logo) {
+      width: 120px;
+      margin: 0;
+    }
+  }
+</style>

@@ -1,0 +1,61 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Figure from '../components/Figure.astro';
+import YouTube from '../components/YouTube.astro';
+---
+
+<Base
+  title="Scene: Village | Linus Ekberg"
+  description="An Unreal Engine 5 village scene: practice in 3D modeling in Maya and Unreal tools like Niagara."
+>
+  <div class="project wrap">
+    <Card class="solo">
+      <div class="solo-top">
+        <div>
+          <h1 class="page-title">Unreal 5 Scene: Village</h1>
+          <ul class="facts">
+            <li>Solo project</li>
+            <li>Maya, Unreal Engine 5.0</li>
+          </ul>
+          <p class="solo-text">
+            This was a small project where I practiced everything related to 3D-Modeling and some of Unreal tools like Niagara.
+          </p>
+        </div>
+        <YouTube id="NS-1phQrQBc" title="Unreal 5 village scene" />
+      </div>
+      <div class="gallery">
+        <Figure loop="flame" width={455} caption="Flame particles" />
+        <Figure loop="gravelymist" width={450} caption="Gravely mist" />
+        <Figure img="moodboard.png" width={455} caption="Moodboard" />
+        <Figure img="asset-list.png" width={450} caption="Some parts for asset list" />
+        <Figure img="3drbeforevecka2.png" width={455} caption="Work in progress - Planning" />
+        <Figure img="3drbefore2vecka2.png" width={450} caption="Work in progress - Planning" />
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  .solo-top {
+    grid-template-columns: minmax(0, 455px) minmax(0, 450px);
+  }
+
+  .solo-top h1 {
+    margin-left: 8px;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 455px) minmax(0, 450px);
+    justify-content: space-between;
+    gap: 22px 27px;
+    margin-top: 36px;
+  }
+
+  @media (max-width: 700px) {
+    .gallery {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+</style>

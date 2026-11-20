@@ -1,0 +1,75 @@
+---
+import Base from '../layouts/Base.astro';
+import Card from '../components/Card.astro';
+import Img from '../components/Img.astro';
+import YouTube from '../components/YouTube.astro';
+---
+
+<Base
+  title="Project: Puzzle game | Linus Ekberg"
+  description="Color Puzzle, a short game made in Dreams where you control two cubes at the same time."
+>
+  <div class="project wrap">
+    <Card class="solo">
+      <h1 class="page-title">Dreams Mini Project: Color Puzzle</h1>
+      <div class="solo-top">
+        <div>
+          <ul class="facts">
+            <li>Solo project (except song)</li>
+            <li>Engine: Dreams</li>
+          </ul>
+          <p class="solo-text">
+            I made this short game in Dreams where you control two cubes at the same time. I wanted to try to make something
+            with a very basic concept interesting by designing fun and challenging levels.
+          </p>
+          <h2 class="subtitle reviews-title">Reviews</h2>
+          <div class="reviews">
+            <Img name="image-3.png" width={449} aspect="449 / 79" position="bottom" alt="Review by SiSiSiX: Great concept, fantastic execution. More...? :)" />
+            <Img
+              name="image-4.png"
+              width={449}
+              aspect="449 / 106"
+              position="bottom"
+              alt="Review by TheJoeTeam: Nice little puzzle game! Only a few minutes of gameplay, but at least it doesn't outstay its welcome. Well presented, and easy to understand without tutorials. Nice one!"
+            />
+            <Img
+              name="image-2.png"
+              width={449}
+              aspect="449 / 87"
+              position="bottom"
+              alt="Review by CHUNGIERA: Good, solid little puzzle game. Very well done, I hope you have more levels for us in the future :)"
+            />
+            <Img name="image.png" width={449} aspect="449 / 72" position="bottom" alt="Review by CheekiiBoom: Fun gameplay and solid controls! Nicely done!" />
+          </div>
+        </div>
+        <div class="side">
+          <YouTube id="9b0mvMSM-ks" title="RB Puzzle - Playthrough" />
+          <Img name="image-5.png" width={444} alt="RB logo" />
+        </div>
+      </div>
+    </Card>
+  </div>
+</Base>
+
+<style>
+  .solo-top {
+    margin-top: 2px;
+  }
+
+  .side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 111px;
+  }
+
+  .reviews-title {
+    margin-top: 34px;
+  }
+
+  @media (max-width: 860px) {
+    .side {
+      gap: 24px;
+      padding-top: 0;
+    }
+  }
+</style>

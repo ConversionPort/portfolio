@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/nunito-sans';
+import '@fontsource-variable/raleway';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** On the home page the site name is the page's main heading. */
+  home?: boolean;
+}
+
+// The whole site is kept out of search engines: every page gets a noindex tag below,
+// and public/robots.txt blocks the files that can't carry one (images, videos, PDFs).
+const { title, description = 'Developer portfolio of Linus Ekberg.', home = false } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/') || '/';
+const pageUrl = new URL(path, Astro.site);
+const nav = [
+  { href: '/', label: 'Home' },
+  { href: '/#projects', label: 'Projects' },
+  { href: '/contact', label: 'Contact' },
+];
+const SiteTitle = home ? 'h1' : 'p';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="site-nav" aria-label="Main">
+        {nav.map(({ href, label }) => <a href={href} aria-current={href === path ? 'page' : undefined}>{label}</a>)}
+      </nav>
+    </header>
+    <div class="title-band">
+      <SiteTitle class="site-title">Linus Ekberg</SiteTitle>
+      <div class="wave wave-1" aria-hidden="true"></div>
+      <div class="wave wave-2" aria-hidden="true"></div>
+      <div class="wave wave-3" aria-hidden="true"></div>
+      <div class="wave wave-4" aria-hidden="true"></div>
+    </div>
+    <main>
+      <slot />
+    </main>
+    <div class="footer-band" aria-hidden="true"></div>
+    <footer class="site-footer">
+      <a href="mailto:ekberglinus01@gmail.com">ekberglinus01@gmail.com</a>
+    </footer>
+  </body>
+</html>

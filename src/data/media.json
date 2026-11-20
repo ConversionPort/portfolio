@@ -1,0 +1,540 @@
+{
+  "images": {
+    "blue9-edited.png": {
+      "from": "blue9_edited.png"
+    },
+    "blue8.png": {
+      "from": "blue8.png"
+    },
+    "ri-javascript-line.png": {
+      "from": "ri--javascript-line.png"
+    },
+    "cib-dot-net-edited.png": {
+      "from": "cib--dot-net_edited.png"
+    },
+    "dashicons-html.png": {
+      "from": "dashicons--html.png"
+    },
+    "simple-icons-autodeskmaya.png": {
+      "from": "simple-icons--autodeskmaya.png"
+    },
+    "akar-icons-react-fill.png": {
+      "from": "akar-icons--react-fill.png"
+    },
+    "proicons-typescript.png": {
+      "from": "proicons--typescript.png"
+    },
+    "icon-park-outline-frigate.png": {
+      "from": "icon-park-outline--frigate.png"
+    },
+    "thumbnail.png": {
+      "from": "thumbnail (1).png"
+    },
+    "beamsabervr.png": {
+      "from": "BeamsaberVR.png"
+    },
+    "blue9.png": {
+      "from": "blue9.png"
+    },
+    "maraplan-icon-small-edited.png": {
+      "from": "Maraplan icon small_edited.png"
+    },
+    "screenshot-2022-04-28-at-15-53-51.png": {
+      "from": "Screenshot_2022-04-28_at_15.53.51.png"
+    },
+    "yarn-thumbnail.png": {
+      "from": "yarn-thumbnail.png"
+    },
+    "maincapsule-bb.png": {
+      "from": "MainCapsule_BB.png"
+    },
+    "github-mark-edited.png": {
+      "from": "GitHub-Mark_edited.png"
+    },
+    "1384014.png": {
+      "from": "1384014.png"
+    },
+    "maraplan-icon.png": {
+      "from": "maraplan icon.png"
+    },
+    "image.png": {
+      "from": "image (12).png"
+    },
+    "image-2.png": {
+      "from": "image (11).png"
+    },
+    "image-3.png": {
+      "from": "image (9).png"
+    },
+    "image-4.png": {
+      "from": "image (10).png"
+    },
+    "brewbestiposter.png": {
+      "from": "BrewBestiPoster.png"
+    },
+    "whiteboard-game-sketch-censor-private-stuff.png": {
+      "from": "Whiteboard game sketch censor private stuff.png"
+    },
+    "image-5.png": {
+      "from": "image (13).png"
+    },
+    "cauldron-suggestion-fix.png": {
+      "from": "Cauldron suggestion fix.png"
+    },
+    "level2-firstplayable-legend.png": {
+      "from": "level2_firstplayable_legend.png"
+    },
+    "level1-firstplayable-legend.png": {
+      "from": "level1_firstplayable_legend.png"
+    },
+    "postit.png": {
+      "from": "postit.png"
+    },
+    "pumpkin.png": {
+      "from": "Pumpkin.png"
+    },
+    "mechanics.png": {
+      "from": "Mechanics.png"
+    },
+    "1-get-a-grip-a.png": {
+      "from": "1_Get_A_Grip_A.png"
+    },
+    "1-get-a-grip-b.png": {
+      "from": "1_Get_A_Grip_B.png"
+    },
+    "level1-changes.png": {
+      "from": "Level1_Changes.png"
+    },
+    "delivery-manager-ui-recipes-overhaul.pdf": {
+      "from": "Delivery Manager UI Recipes Overhaul.pdf"
+    },
+    "cleaninghour-pre-artpass.png": {
+      "from": "CleaningHour-pre-artpass.png"
+    },
+    "playerportraits.png": {
+      "from": "PlayerPortraits.png"
+    },
+    "cleaninghour-late-beta.png": {
+      "from": "CleaningHour-late beta.png"
+    },
+    "icy-platforms-alpha.png": {
+      "from": "icy platforms alpha.png"
+    },
+    "cleaninghour-pre-artpass-2.png": {
+      "from": "CleaningHour-pre-artpass (2).png"
+    },
+    "release-cleaning-hour.png": {
+      "from": "Release_Cleaning_Hour.png"
+    },
+    "icy-platforms-early.png": {
+      "from": "icy platforms early.png"
+    },
+    "icy-platforms-beta.png": {
+      "from": "icy platforms beta.png"
+    },
+    "icy-platforms-code-release.png": {
+      "from": "icy platforms code release.png"
+    },
+    "final-icy-platforms.png": {
+      "from": "Final_Icy_Platforms.png"
+    },
+    "final-the-canal.png": {
+      "from": "Final_The_Canal.png"
+    },
+    "final-pumped-up.png": {
+      "from": "Final_Pumped_Up.png"
+    },
+    "late-ghosthouse.png": {
+      "from": "Late_GhostHouse.png"
+    },
+    "early-ghosthouse.png": {
+      "from": "Early_GhostHouse.png"
+    },
+    "github-mark-edited-edited.png": {
+      "from": "GitHub-Mark_edited_edited.png"
+    },
+    "code-three-islands.png": {
+      "from": "Code_Three_Islands.png"
+    },
+    "yarn-warning-list.png": {
+      "from": "yarn_warning_list.png"
+    },
+    "beaverimage.png": {
+      "from": "BeaverImage.png"
+    },
+    "yarn-warning-text.png": {
+      "from": "yarn_warning_text.png"
+    },
+    "loggablaturkos.png": {
+      "from": "loggaBLATURKOS.png"
+    },
+    "loggamed-text.png": {
+      "from": "Loggamed_text.png"
+    },
+    "deerfromfrontimage.png": {
+      "from": "DeerFromFrontImage.png"
+    },
+    "hedgehogimage.png": {
+      "from": "HedgehogImage.png"
+    },
+    "racoonimage.png": {
+      "from": "RacoonImage.png"
+    },
+    "moodboard.png": {
+      "from": "moodboard.png"
+    },
+    "asset-list.png": {
+      "from": "Asset List.png"
+    },
+    "3drbefore2vecka2.png": {
+      "from": "3drBefore2Vecka2.png"
+    },
+    "3drbeforevecka2.png": {
+      "from": "3drBeforeVecka2.png"
+    },
+    "image-6.png": {
+      "from": "image (7).png"
+    },
+    "image-7.png": {
+      "from": "image (6).png"
+    },
+    "image-8.png": {
+      "from": "image (5).png"
+    },
+    "image-9.png": {
+      "from": "image (8).png"
+    },
+    "level1-plan2.png": {
+      "from": "Level1_plan2.png"
+    },
+    "posterv2.png": {
+      "from": "Posterv2.png"
+    },
+    "level1-plan1-v2.png": {
+      "from": "Level1_plan1_v2.png"
+    },
+    "level-clues-1.png": {
+      "from": "Level Clues 1.png"
+    },
+    "level-clues-2.png": {
+      "from": "Level Clues 2.png"
+    },
+    "highresscreenshot00020.png": {
+      "from": "HighresScreenshot00020.png"
+    },
+    "image-10.png": {
+      "from": "image (3).png"
+    },
+    "image-11.png": {
+      "from": "image.png"
+    },
+    "image-12.png": {
+      "from": "image (2).png"
+    },
+    "image-13.png": {
+      "from": "image (15).png"
+    },
+    "image-14.png": {
+      "from": "image (14).png"
+    },
+    "image-15.png": {
+      "from": "image (16).png"
+    },
+    "image-16.png": {
+      "from": "image (18).png"
+    },
+    "image-17.png": {
+      "from": "image (17).png"
+    },
+    "battleship-diagram.png": {
+      "from": "Battleship Diagram.png"
+    },
+    "image-18.png": {
+      "from": "image (19).png"
+    }
+  },
+  "gifs": {
+    "ezgif-com-gif-maker": {
+      "src": "/media/gifs/ezgif-com-gif-maker.gif",
+      "width": 600,
+      "height": 370,
+      "from": "ezgif.com-gif-maker (4).gif"
+    }
+  },
+  "loops": {
+    "enchantment-field": {
+      "src": "/media/loops/enchantment-field.mp4",
+      "poster": "enchantment-field.jpg",
+      "width": 1280,
+      "height": 832,
+      "from": "Enchantment field.gif"
+    },
+    "enchantment-field-with-button": {
+      "src": "/media/loops/enchantment-field-with-button.mp4",
+      "poster": "enchantment-field-with-button.jpg",
+      "width": 1280,
+      "height": 760,
+      "from": "Enchantment field with button.gif"
+    },
+    "enchantment-field-factory-level-compress": {
+      "src": "/media/loops/enchantment-field-factory-level-compress.mp4",
+      "poster": "enchantment-field-factory-level-compress.jpg",
+      "width": 1280,
+      "height": 846,
+      "from": "Enchantment field factory level compress.gif"
+    },
+    "enchantment-field-rotatinator-level-compress": {
+      "src": "/media/loops/enchantment-field-rotatinator-level-compress.mp4",
+      "poster": "enchantment-field-rotatinator-level-compress.jpg",
+      "width": 1280,
+      "height": 1006,
+      "from": "Enchantment field rotatinator level compress.gif"
+    },
+    "tutoriallevel": {
+      "src": "/media/loops/tutoriallevel.mp4",
+      "poster": "tutoriallevel.jpg",
+      "width": 1280,
+      "height": 810,
+      "from": "TutorialLevel.gif"
+    },
+    "sawing": {
+      "src": "/media/loops/sawing.mp4",
+      "poster": "sawing.jpg",
+      "width": 584,
+      "height": 254,
+      "from": "Sawing.gif"
+    },
+    "throwing-and-attracting": {
+      "src": "/media/loops/throwing-and-attracting.mp4",
+      "poster": "throwing-and-attracting.jpg",
+      "width": 700,
+      "height": 324,
+      "from": "Throwing and Attracting.gif"
+    },
+    "circle-transition-early-alpha": {
+      "src": "/media/loops/circle-transition-early-alpha.mp4",
+      "poster": "circle-transition-early-alpha.jpg",
+      "width": 1280,
+      "height": 656,
+      "from": "Circle Transition Early Alpha.gif"
+    },
+    "icyplatformsearlybeta-ezgif-com-optimize": {
+      "src": "/media/loops/icyplatformsearlybeta-ezgif-com-optimize.mp4",
+      "poster": "icyplatformsearlybeta-ezgif-com-optimize.jpg",
+      "width": 606,
+      "height": 358,
+      "from": "IcyPlatformsEarlyBeta-ezgif.com-optimize.gif"
+    },
+    "emoting": {
+      "src": "/media/loops/emoting.mp4",
+      "poster": "emoting.jpg",
+      "width": 540,
+      "height": 288,
+      "from": "Emoting.gif"
+    },
+    "example": {
+      "src": "/media/loops/example.mp4",
+      "poster": "example.jpg",
+      "width": 1280,
+      "height": 850,
+      "from": "Example.gif"
+    },
+    "gameplay-cropped": {
+      "src": "/media/loops/gameplay-cropped.mp4",
+      "poster": "gameplay-cropped.jpg",
+      "width": 1280,
+      "height": 568,
+      "from": "gameplay_cropped.gif"
+    },
+    "spawn": {
+      "src": "/media/loops/spawn.mp4",
+      "poster": "spawn.jpg",
+      "width": 1280,
+      "height": 392,
+      "from": "spawn.gif"
+    },
+    "powerups": {
+      "src": "/media/loops/powerups.mp4",
+      "poster": "powerups.jpg",
+      "width": 430,
+      "height": 670,
+      "from": "powerups.gif"
+    },
+    "flame": {
+      "src": "/media/loops/flame.mp4",
+      "poster": "flame.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "Flame.gif"
+    },
+    "gravelymist": {
+      "src": "/media/loops/gravelymist.mp4",
+      "poster": "gravelymist.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "GravelyMist.gif"
+    },
+    "locoroco-creating-level-fast": {
+      "src": "/media/loops/locoroco-creating-level-fast.mp4",
+      "poster": "locoroco-creating-level-fast.jpg",
+      "width": 1280,
+      "height": 838,
+      "from": "Locoroco creating level fast.gif"
+    },
+    "locoroco-tilt": {
+      "src": "/media/loops/locoroco-tilt.mp4",
+      "poster": "locoroco-tilt.jpg",
+      "width": 956,
+      "height": 646,
+      "from": "Locoroco Tilt.gif"
+    },
+    "locoroco-eat": {
+      "src": "/media/loops/locoroco-eat.mp4",
+      "poster": "locoroco-eat.jpg",
+      "width": 956,
+      "height": 646,
+      "from": "Locoroco Eat.gif"
+    },
+    "locoroco-physics": {
+      "src": "/media/loops/locoroco-physics.mp4",
+      "poster": "locoroco-physics.jpg",
+      "width": 1250,
+      "height": 870,
+      "from": "Locoroco Physics.gif"
+    },
+    "fleshscape-weenie-1": {
+      "src": "/media/loops/fleshscape-weenie-1.mp4",
+      "poster": "fleshscape-weenie-1.jpg",
+      "width": 1004,
+      "height": 592,
+      "from": "Fleshscape weenie 1.gif"
+    },
+    "fleshscape-weenie-2": {
+      "src": "/media/loops/fleshscape-weenie-2.mp4",
+      "poster": "fleshscape-weenie-2.jpg",
+      "width": 1004,
+      "height": 592,
+      "from": "Fleshscape weenie 2.gif"
+    },
+    "fleshscape-weenie-3": {
+      "src": "/media/loops/fleshscape-weenie-3.mp4",
+      "poster": "fleshscape-weenie-3.jpg",
+      "width": 1004,
+      "height": 592,
+      "from": "Fleshscape weenie 3.gif"
+    },
+    "beforeandafter": {
+      "src": "/media/loops/beforeandafter.mp4",
+      "poster": "beforeandafter.jpg",
+      "width": 640,
+      "height": 360,
+      "from": "beforeandafter.gif"
+    },
+    "fleshscape-crystal": {
+      "src": "/media/loops/fleshscape-crystal.mp4",
+      "poster": "fleshscape-crystal.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "Fleshscape - Crystal.gif"
+    },
+    "fleshscape-puzzleexample1": {
+      "src": "/media/loops/fleshscape-puzzleexample1.mp4",
+      "poster": "fleshscape-puzzleexample1.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "Fleshscape - PuzzleExample1.gif"
+    },
+    "fleshscape-secret": {
+      "src": "/media/loops/fleshscape-secret.mp4",
+      "poster": "fleshscape-secret.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "Fleshscape Secret.gif"
+    },
+    "fleshscape-blueprint-stuff": {
+      "src": "/media/loops/fleshscape-blueprint-stuff.mp4",
+      "poster": "fleshscape-blueprint-stuff.jpg",
+      "width": 500,
+      "height": 500,
+      "from": "Fleshscape - Blueprint stuff.gif"
+    },
+    "locoroco-creating-level": {
+      "src": "/media/loops/locoroco-creating-level.mp4",
+      "poster": "locoroco-creating-level.jpg",
+      "width": 1280,
+      "height": 838,
+      "from": "Locoroco Creating level.gif"
+    },
+    "copy-lethals": {
+      "src": "/media/loops/copy-lethals.mp4",
+      "poster": "copy-lethals.jpg",
+      "width": 600,
+      "height": 338,
+      "from": "Copy Lethals.gif"
+    }
+  },
+  "videos": {
+    "maraplan-demo": {
+      "src": "/media/video/maraplan-demo.mp4",
+      "poster": "maraplan-demo.jpg",
+      "width": 540,
+      "height": 1170,
+      "from": "Maraplan Demo.mp4",
+      "wixId": "8a4b9a_b5f3fba3dab2452ca0cd8355876eaf9e"
+    },
+    "showcase1": {
+      "src": "/media/video/showcase1.mp4",
+      "poster": "showcase1.jpg",
+      "width": 360,
+      "height": 640,
+      "from": "Showcase1.mp4",
+      "wixId": "8a4b9a_38297b6a2b1d40ad849c519d1d4908d7"
+    },
+    "8mb-video-asc-yhq4y98s": {
+      "src": "/media/video/8mb-video-asc-yhq4y98s.mp4",
+      "poster": "8mb-video-asc-yhq4y98s.jpg",
+      "width": 360,
+      "height": 640,
+      "from": "8mb.video-Asc-yhQ4Y98S.mp4",
+      "wixId": "8a4b9a_45bc90b24f8f44e289a257fc0059d4c2"
+    },
+    "showcase3": {
+      "src": "/media/video/showcase3.mp4",
+      "poster": "showcase3.jpg",
+      "width": 360,
+      "height": 640,
+      "from": "Showcase3.mp4",
+      "wixId": "8a4b9a_5709a3f2070f48a08017df70e0e7706c"
+    },
+    "dev-video-lethal-tool-shaders-progress-134264553": {
+      "src": "/media/video/dev-video-lethal-tool-shaders-progress-134264553.mp4",
+      "poster": "dev-video-lethal-tool-shaders-progress-134264553.jpg",
+      "width": 1280,
+      "height": 720,
+      "from": "Dev Video： Lethal Tool + Shaders Progress [134264553].mp4",
+      "wixId": "8a4b9a_3e75203dd08c4827ab245e0c50a07a95"
+    }
+  },
+  "files": {
+    "/files/fleshscape-gdd.pdf": {
+      "from": "Fleshscape - GDD.pdf",
+      "wixPath": "/_files/ugd/8a4b9a_024b039874e2454d973aed75f8a6a3b1.pdf"
+    },
+    "/files/beamsabervr-thesis-swedish.pdf": {
+      "from": "KEX___Sensorer (5).pdf",
+      "wixPath": "/_files/ugd/8a4b9a_333f71b529ca4851827e9123d8f7076b.pdf"
+    },
+    "/files/beamsabervr-research-paper.pdf": {
+      "from": "Sensorer___Forskningspapper (1).pdf",
+      "wixPath": "/_files/ugd/8a4b9a_80b2dbf557e64c03aa3f718cf7a04433.pdf"
+    },
+    "/files/delivery-manager-ui-recipes-overhaul.pdf": {
+      "from": "Delivery Manager UI Recipes Overhaul.pdf",
+      "wixPath": "/_files/ugd/8a4b9a_1ce114236956468d81bce8709250019b.pdf"
+    },
+    "/files/fleshscape-2-pager.pdf": {
+      "from": "2-Pager.pdf",
+      "wixPath": "/_files/ugd/8a4b9a_78238fb6fb2640519560058cd077a0b2.pdf"
+    }
+  }
+}
