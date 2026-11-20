@@ -1,3 +1,1 @@
-# Portfolio
-
-This portfolio was converted with the help of AI from an online website builder into a static site built with [Astro](https://astro.build) and hosted on GitHub Pages. The goal was to save money.
+This portfolio was converted with AI from an online website builder into a static site built with [Astro](https://astro.build) and hosted on GitHub Pages. I don't do any development. It is all AI basically. I already designed the site years ago and was paying too much money for that service. This just allows me to save money.
